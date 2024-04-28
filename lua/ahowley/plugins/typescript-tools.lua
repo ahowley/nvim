@@ -13,10 +13,16 @@ return {
 			},
 			keys = {
 				{
-					"<leader>gm",
+					"<leader>cs",
 					"<cmd>TSToolsSortImports<CR>",
 					mode = "n",
-					desc = "[g]Sort I[m]ports",
+					desc = "[c]ode [s]ort imports",
+				},
+				{
+					"<leader>co",
+					"<cmd>TSToolsOrganizeImports<CR>",
+					mode = "n",
+					desc = "[c]ode [o]rganize imports",
 				},
 			},
 		})
