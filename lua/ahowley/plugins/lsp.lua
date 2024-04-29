@@ -1,4 +1,5 @@
 require("ahowley.remap")
+
 return { -- LSP Configuration & Plugins
 	"neovim/nvim-lspconfig",
 	dependencies = {
@@ -17,30 +18,13 @@ return { -- LSP Configuration & Plugins
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
-		-- Brief aside: **What is LSP?**
-		--
-		-- LSP is an initialism you've probably heard, but might not understand what it is.
-		--
-		-- LSP stands for Language Server Protocol. It's a protocol that helps editors
-		-- and language tooling communicate in a standardized fashion.
-		--
-		-- In general, you have a "server" which is some tool built to understand a particular
-		-- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
-		-- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-		-- processes that communicate with some "client" - in this case, Neovim!
-		--
-		-- LSP provides Neovim with features like:
-		--  - Go to definition
-		--  - Find references
-		--  - Autocompletion
-		--  - Symbol Search
-		--  - and more!
-		--
-		-- Thus, Language Servers are external tools that must be installed separately from
-		-- Neovim. This is where `mason` and related plugins come into play.
-		--
-		-- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-		-- and elegantly composed help section, `:help lsp-vs-treesitter`
+		map("n", l("fr"), vim.lsp.buf.rename, "[f]ile [r]ename")
+		map("n", l("ca"), vim.lsp.buf.code_action, "[c]ode [a]ction")
+		map("n", l("ch"), vim.lsp.buf.hover, "[c]ode [h]over")
+		map("n", l("gD"), vim.lsp.buf.declaration, "[g]oto [d]eclaration")
+		map("n", l("ti"), function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+		end, "[t]oggle [i]nlay hints")
 
 		--  This function gets run when an LSP attaches to a particular buffer.
 		--    That is to say, every time a new file is opened that is associated with
@@ -49,11 +33,6 @@ return { -- LSP Configuration & Plugins
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
-				map("n", l("fr"), vim.lsp.buf.rename, "[f]ile [r]ename")
-				map("n", l("ca"), vim.lsp.buf.code_action, "[c]ode [a]ction")
-				map("n", l("ch"), vim.lsp.buf.hover, "[c]ode [h]over")
-				map("n", l("gD"), vim.lsp.buf.declaration, "[g]oto [d]eclaration")
-
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 				if client and client.server_capabilities.documentHighlightProvider then
 					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
@@ -68,12 +47,6 @@ return { -- LSP Configuration & Plugins
 						group = highlight_augroup,
 						callback = vim.lsp.buf.clear_references,
 					})
-				end
-
-				if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-					map("n", l("th"), function()
-						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-					end, "[t]oggle inlay [h]ints")
 				end
 			end,
 		})
