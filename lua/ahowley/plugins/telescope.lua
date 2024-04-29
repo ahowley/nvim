@@ -1,5 +1,6 @@
-return	{
-	'nvim-telescope/telescope.nvim', tag = '0.1.6',
+return {
+	"nvim-telescope/telescope.nvim",
+	tag = "0.1.6",
 	-- or                            , branch = '0.1.x',
 	event = "VimEnter", -- Sets the loading event to 'VimEnter'
 	dependencies = {
@@ -53,8 +54,7 @@ return	{
 		end, "[l]ist [n]eovim config")
 
 		map("n", l("gi"), builtin.lsp_implementations, "[g]oto [i]mplementation(s)")
-		map("n", l("gd"), builtin.lsp_implementations, "[g]oto [d]efinition(s)")
+		map("n", l("gd"), builtin.lsp_definitions, "[g]oto [d]efinition(s)")
 		map("n", l("gt"), builtin.lsp_type_definitions, "[g]oto [t]ype definition(s)")
-	end
+	end,
 }
-

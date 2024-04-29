@@ -26,6 +26,7 @@ require("lazy").setup({
 	require("ahowley.plugins.symbols-outline"),
 	require("ahowley.plugins.neo-tree"),
 	require("ahowley.plugins.nvim-treesitter"),
+	require("ahowley.plugins.rust-tools"),
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

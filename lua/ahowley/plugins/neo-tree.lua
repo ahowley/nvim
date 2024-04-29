@@ -12,5 +12,6 @@ return {
 	config = {
 		map("n", l("lf"), "<cmd>Neotree filesystem reveal current<CR>", "[l]ist [f]iles"),
 		map("n", l("fe"), "<cmd>Neotree filesystem reveal current<CR>", "[f]ile [e]xplore"),
+		map("n", l("te"), "<cmd>Neotree filesystem toggle<CR>", "[t]oggle [e]xplore"),
 	},
 }

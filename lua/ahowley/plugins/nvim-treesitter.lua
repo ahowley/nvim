@@ -1,3 +1,5 @@
+require("ahowley.remap")
+
 return { -- Highlight, edit, and navigate code
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
@@ -32,6 +34,17 @@ return { -- Highlight, edit, and navigate code
 		require("nvim-treesitter.install").prefer_git = true
 		---@diagnostic disable-next-line: missing-fields
 		require("nvim-treesitter.configs").setup(opts)
+
+		map("n", l("th"), function()
+			if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] == nil then
+				vim.cmd("TSEnable highlight")
+			else
+				vim.cmd("TSDisable highlight")
+			end
+		end, "[t]oggle [h]ighlighting")
+		map("n", l("sh"), function()
+			print(vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] ~= nil)
+		end, "[s]tatus [h]ighlighting")
 
 		-- There are additional nvim-treesitter modules that you can use to interact
 		-- with nvim-treesitter. You should go explore a few and see what interests you:
