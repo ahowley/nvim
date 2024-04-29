@@ -10,6 +10,6 @@ return {
 			-- Your setup opts here (leave empty to use defaults)
 		})
 
-		map("n", l("to"), "<cmd>Outline<CR>", "[t]oggle [o]utline")
+		map("n", l("o"), "<cmd>Outline<CR>", "[t]oggle [o]utline")
 	end,
 }

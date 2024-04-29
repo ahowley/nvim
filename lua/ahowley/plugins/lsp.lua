@@ -16,6 +16,20 @@ return { -- LSP Configuration & Plugins
 		-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins:wq
 		-- used for completion, annotations and signatures of Neovim apis
 		{ "folke/neodev.nvim", opts = {} },
+		{
+			"SmiteshP/nvim-navic",
+			opts = {
+				lsp = { auto_attach = true },
+			},
+		},
+		{
+			"SmiteshP/nvim-navbuddy",
+			dependencies = {
+				"SmiteshP/nvim-navic",
+				"MunifTanjim/nui.nvim",
+			},
+			opts = { lsp = { auto_attach = true } },
+		},
 	},
 	opts = {
 		inlay_hints = { enabled = true },
@@ -28,6 +42,7 @@ return { -- LSP Configuration & Plugins
 		map("n", l("ti"), function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 		end, "[t]oggle [i]nlay hints")
+		map("n", l("cn"), "<cmd>Navbuddy<CR>", "[c]ode [n]avigate")
 
 		--  This function gets run when an LSP attaches to a particular buffer.
 		--    That is to say, every time a new file is opened that is associated with
