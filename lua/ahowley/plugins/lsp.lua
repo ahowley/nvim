@@ -17,6 +17,9 @@ return { -- LSP Configuration & Plugins
 		-- used for completion, annotations and signatures of Neovim apis
 		{ "folke/neodev.nvim", opts = {} },
 	},
+	opts = {
+		inlay_hints = { enabled = true },
+	},
 	config = function()
 		map("n", l("fr"), vim.lsp.buf.rename, "[f]ile [r]ename")
 		map("n", l("ca"), vim.lsp.buf.code_action, "[c]ode [a]ction")
