@@ -31,9 +31,6 @@ return { -- LSP Configuration & Plugins
 			opts = { lsp = { auto_attach = true } },
 		},
 	},
-	opts = {
-		inlay_hints = { enabled = true },
-	},
 	config = function()
 		map("n", l("fr"), vim.lsp.buf.rename, "[f]ile [r]ename")
 		map("n", l("ca"), vim.lsp.buf.code_action, "[c]ode [a]ction")

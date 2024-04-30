@@ -2,8 +2,9 @@ function l(s)
 	return "<leader>" .. s
 end
 
-function map(mode, binding, action, description)
-	opts = { desc = description or "" }
+function map(mode, binding, action, description, opts)
+	opts = opts or {}
+	opts.desc = description
 	opts.buffer = bufnr
 	vim.keymap.set(mode, binding, action, opts)
 end

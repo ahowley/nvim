@@ -1,7 +1,6 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
--- Highlight on yank
 augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
@@ -13,6 +12,16 @@ autocmd("TextYankPost", {
 
 -- Remove whitespace on save
 autocmd("BufWritePre", {
+	desc = "Remove whitespace on save",
 	pattern = "",
 	command = ":%s/\\s\\+$//e",
+})
+
+autocmd("ModeChanged", {
+	desc = "Redraw on mode change to avoid disappearing statusline",
+	callback = function()
+		vim.schedule(function()
+			vim.cmd("redraw")
+		end)
+	end,
 })
