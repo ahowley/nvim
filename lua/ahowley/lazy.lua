@@ -10,6 +10,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"tpope/vim-sleuth",
 	require("ahowley.plugins.lsp"),
+	require("ahowley.plugins.lsp_signature"),
 	require("ahowley.plugins.nvim-cmp"),
 	require("ahowley.plugins.telescope"),
 	require("ahowley.plugins.which-key"),
@@ -21,6 +22,8 @@ require("lazy").setup({
 	require("ahowley.plugins.nvim-autopairs"),
 	require("ahowley.plugins.inc-rename"),
 	require("ahowley.plugins.typescript-tools"),
+	require("ahowley.plugins.action-hints"),
+	require("ahowley.plugins.actions-preview"),
 	require("ahowley.plugins.feline"),
 	require("ahowley.plugins.tokyonight"),
 	require("ahowley.plugins.todo-comments"),
@@ -30,6 +33,8 @@ require("lazy").setup({
 	require("ahowley.plugins.nvim-treesitter"),
 	require("ahowley.plugins.syntax-tree-surfer"),
 	require("ahowley.plugins.rust-tools"),
+	require("ahowley.plugins.nvim-lightbulb"),
+	require("ahowley.plugins.goto-preview"),
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

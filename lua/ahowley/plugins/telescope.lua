@@ -52,8 +52,8 @@ return {
 			builtin.find_files({ cwd = vim.fn.stdpath("config") })
 		end, "[l]ist [n]eovim config")
 
-		map("n", l("gi"), builtin.lsp_implementations, "[g]oto [i]mplementation(s)")
-		map("n", l("gd"), builtin.lsp_definitions, "[g]oto [d]efinition(s)")
-		map("n", l("gt"), builtin.lsp_type_definitions, "[g]oto [t]ype definition(s)")
+		-- map("n", l("gi"), builtin.lsp_implementations, "[g]oto [i]mplementation(s)")
+		-- map("n", l("gd"), builtin.lsp_definitions, "[g]oto [d]efinition(s)")
+		-- map("n", l("gt"), builtin.lsp_type_definitions, "[g]oto [t]ype definition(s)")
 	end,
 }

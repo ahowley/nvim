@@ -33,7 +33,7 @@ return { -- LSP Configuration & Plugins
 	},
 	config = function()
 		map("n", l("fr"), vim.lsp.buf.rename, "[f]ile [r]ename")
-		map("n", l("ca"), vim.lsp.buf.code_action, "[c]ode [a]ction")
+		-- map("n", l("ca"), vim.lsp.buf.code_action, "[c]ode [a]ction")
 		map("n", l("ch"), vim.lsp.buf.hover, "[c]ode [h]over")
 		map("n", l("gD"), vim.lsp.buf.declaration, "[g]oto [d]eclaration")
 		map("n", l("ti"), function()
