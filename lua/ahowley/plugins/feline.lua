@@ -83,21 +83,21 @@ return {
 				end,
 				hl = function()
 					return {
-						fg = get_vim_color(1.0),
-						bg = get_vim_color(0.2),
+						fg = colors.bg,
+						bg = get_vim_color(1.0),
 					}
 				end,
 				left_sep = {
 					str = " ",
 					hl = function()
 						return {
-							fg = get_vim_color(0.2),
-							bg = get_vim_color(0.2),
+							fg = get_vim_color(1.0),
+							bg = get_vim_color(1.0),
 						}
 					end,
 				},
 				-- left_sep = get_left_sep(0.2),
-				right_sep = get_right_sep(0.2),
+				right_sep = get_right_sep(1.0),
 			}
 		end
 
