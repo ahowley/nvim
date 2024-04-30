@@ -87,7 +87,16 @@ return {
 						bg = get_vim_color(0.2),
 					}
 				end,
-				left_sep = get_left_sep(0.2),
+				left_sep = {
+					str = " ",
+					hl = function()
+						return {
+							fg = get_vim_color(0.2),
+							bg = get_vim_color(0.2),
+						}
+					end,
+				},
+				-- left_sep = get_left_sep(0.2),
 				right_sep = get_right_sep(0.2),
 			}
 		end
@@ -214,31 +223,28 @@ return {
 					if require("nvim-navic").get_data() then
 						return require("nvim-navic").get_location()
 					else
-						return " "
+						return ""
 					end
 				end,
 				hl = function()
 					return {
-						fg = get_vim_color(0.7),
-						bg = get_vim_color(0.05),
+						fg = get_vim_color(1),
+						bg = get_vim_color(0.2),
 					}
 				end,
-				left_sep = get_left_sep(0.05),
-				right_sep = get_right_sep(0.05),
+				left_sep = get_left_sep(0.2),
+				right_sep = get_right_sep(0.2),
 			}
 		end
 
 		local blank_component = function()
 			return {
 				provider = "",
-				hl = function()
-					return {
-						fg = get_vim_color(0.025),
-						bg = get_vim_color(0.025),
-					}
-				end,
-				left_sep = get_left_sep(0.025),
-				right_sep = get_right_sep(0.025),
+				hl = {
+					fg = colors.bg,
+					bg = colors.bg,
+				},
+				always_visible = true,
 			}
 		end
 
@@ -313,7 +319,16 @@ return {
 					}
 				end,
 				left_sep = get_left_sep(0.2),
-				right_sep = get_right_sep(0.2),
+				right_sep = {
+					str = " ",
+					hl = function()
+						return {
+							fg = get_vim_color(0.2),
+							bg = get_vim_color(0.2),
+						}
+					end,
+				},
+				-- right_sep = get_right_sep(0.2),
 			}
 		end
 
