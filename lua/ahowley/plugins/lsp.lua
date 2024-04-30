@@ -1,5 +1,27 @@
 require("ahowley.remap")
 
+local signs = {
+	Error = " ",
+	Warn = " ",
+	Hint = " ",
+	Info = " ",
+}
+local severity = vim.diagnostic.severity
+local function format_diagnostic(diagnostic)
+	local message = diagnostic.message
+	if diagnostic.severity == severity.ERROR then
+		return signs.Error .. message
+	elseif diagnostic.severity == severity.INFO then
+		return signs.Info .. message
+	elseif diagnostic.severity == severity.WARN then
+		return signs.Warn .. message
+	elseif diagnostic.severity == severity.HINT then
+		return signs.Hint .. message
+	else
+		return message
+	end
+end
+
 return { -- LSP Configuration & Plugins
 	"neovim/nvim-lspconfig",
 	dependencies = {
@@ -30,12 +52,96 @@ return { -- LSP Configuration & Plugins
 			},
 			opts = { lsp = { auto_attach = true } },
 		},
+		{
+			"lewis6991/hover.nvim",
+			config = function()
+				require("hover").setup({
+					init = function()
+						local colors = require("tokyonight.colors").setup()
+						local util = require("tokyonight.util")
+
+						vim.api.nvim_set_hl(
+							0,
+							"TNDiagnosticHint",
+							{ fg = util.lighten(colors.green, 0.5), bg = util.darken(colors.blue, 0.6) }
+						)
+						vim.api.nvim_set_hl(
+							0,
+							"TNDiagnosticWarning",
+							{ fg = util.lighten(colors.orange, 0.5), bg = util.darken(colors.blue, 0.6) }
+						)
+						vim.api.nvim_set_hl(
+							0,
+							"TNDiagnosticInfo",
+							{ fg = util.lighten(colors.blue, 0.5), bg = util.darken(colors.blue, 0.6) }
+						)
+						vim.api.nvim_set_hl(
+							0,
+							"TNDiagnosticError",
+							{ fg = util.lighten(colors.red, 0.5), bg = util.darken(colors.blue, 0.6) }
+						)
+						require("hover.providers.lsp")
+						require("hover").register({
+							name = "Diagnostic",
+							priority = 1100,
+							enabled = function()
+								return true
+							end,
+							execute = function(opts, done)
+								if opts == nil or opts == false then
+									done(nil)
+									return
+								end
+
+								local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+								local current_line_diagnostics = vim.diagnostic.get(0, {
+									lnum = row - 1,
+								})
+
+								local diagnostic = current_line_diagnostics[1]
+								if diagnostic == nil then
+									done(nil)
+									return
+								end
+
+								print(format_diagnostic(diagnostic))
+
+								done({
+									lines = vim.split(format_diagnostic(diagnostic), "\n"),
+									filetype = vim.bo.filetype,
+								})
+							end,
+						})
+					end,
+					preview_opts = {
+						border = "rounded",
+					},
+					preview_window = true,
+					title = false,
+					mouse_providers = {
+						"LSP",
+					},
+					mouse_delay = 300,
+				})
+			end,
+		},
 	},
 	config = function()
 		map("n", l("fr"), vim.lsp.buf.rename, "[f]ile [r]ename")
 		-- map("n", l("ca"), vim.lsp.buf.code_action, "[c]ode [a]ction")
-		map("n", l("ch"), vim.lsp.buf.hover, "[c]ode [h]over")
-		map("n", l("gD"), vim.lsp.buf.declaration, "[g]oto [d]eclaration")
+		map("n", l("ch"), require("hover").hover, "[c]ode [h]over")
+		-- map("n", l("ch"), vim.lsp.buf.hover, "[c]ode [h]over")
+		-- map("n", l("gD"), vim.lsp.buf.declaration, "[g]oto [d]eclaration")
+		map("n", l("cH"), require("hover").hover_select, "[c]ode [H]over select")
+		map("n", "<C-p>", function()
+			---@diagnostic disable-next-line: missing-parameter
+			require("hover").hover_switch("previous")
+		end, "hover.nvim (previous source)")
+		map("n", "<C-n>", function()
+			---@diagnostic disable-next-line: missing-parameter
+			require("hover").hover_switch("next")
+		end, "hover.nvim (next source)")
+		map("n", "<MouseMove>", require("hover").hover_mouse, "hover.nvim (mouse)")
 		map("n", l("ti"), function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 		end, "[t]oggle [i]nlay hints")

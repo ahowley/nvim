@@ -1,0 +1,9 @@
+{
+    "diagnostics.globals": [
+        "mappings",
+        "mapreg",
+        "map",
+        "l",
+        "bufnr"
+    ]
+}

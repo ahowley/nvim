@@ -5,6 +5,7 @@ end
 function map(mode, binding, action, description, opts)
 	opts = opts or {}
 	opts.desc = description
+	---@diagnostic disable-next-line: undefined-global
 	opts.buffer = bufnr
 	vim.keymap.set(mode, binding, action, opts)
 end
