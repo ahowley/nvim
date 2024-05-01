@@ -34,7 +34,7 @@ function mappings()
 	end, "Go to next [d]iagnostic")
 
 	-- Easier to reach macro key
-	map("n", l("m"), "@", "Run [m]acro")
+	-- map("n", l("m"), "@", "Run [m]acro")
 
 	-- Toggle cmd line
 	map("n", "<M-`>", function()
