@@ -22,15 +22,6 @@ return {
 
 		-- Useful for getting pretty icons, but requires a Nerd Font.
 		{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
-		{
-			"ecthelionvi/NeoComposer.nvim",
-			dependencies = { "kkharji/sqlite.lua" },
-			config = function()
-				require("NeoComposer").setup({
-					notify = false,
-				})
-			end,
-		},
 	},
 	config = function()
 		require("ahowley.remap")
@@ -60,8 +51,6 @@ return {
 		map("n", l("ln"), function()
 			builtin.find_files({ cwd = vim.fn.stdpath("config") })
 		end, "[l]ist [n]eovim config")
-		require("telescope").load_extension("macros")
-		map("n", l("lq"), "<cmd>Telescope macros<CR>", "[l]ist ma[q]ros")
 
 		-- map("n", l("gi"), builtin.lsp_implementations, "[g]oto [i]mplementation(s)")
 		map("n", l("gd"), builtin.lsp_definitions, "[g]oto [d]efinition(s)")
