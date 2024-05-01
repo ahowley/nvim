@@ -47,5 +47,5 @@ function mappings()
 	map("n", "<C-l>", "<C-w><C-l>", "Move to window on the right")
 	map("n", "<C-k>", "<C-w><C-k>", "Move to window above")
 	map("n", "<C-j>", "<C-w><C-j>", "Move to window below")
-	map("n", l("fq"), "<cmd>bd<CR>", "[f]ile [q]uit")
+	map("n", l("fq"), "<cmd>q<CR>", "[f]ile [q]uit")
 end
