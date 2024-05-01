@@ -33,6 +33,9 @@ function mappings()
 		vim.diagnostic.goto_next({ float = false })
 	end, "Go to next [d]iagnostic")
 
+	-- Easier to reach macro key
+	map("n", l("m"), "@", "Run [m]acro")
+
 	-- Toggle cmd line
 	map("n", "<M-`>", function()
 		if vim.o.cmdheight == 0 then
