@@ -26,8 +26,12 @@ function mappings()
 	map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search highlights")
 
 	-- Diagnostic keymaps
-	map("n", "[d", vim.diagnostic.goto_prev, "Go to previous [d]iagnostic")
-	map("n", "]d", vim.diagnostic.goto_prev, "Go to next [d]iagnostic")
+	map("n", "[d", function()
+		vim.diagnostic.goto_prev({ float = false })
+	end, "Go to previous [d]iagnostic")
+	map("n", "]d", function()
+		vim.diagnostic.goto_next({ float = false })
+	end, "Go to next [d]iagnostic")
 
 	-- Toggle cmd line
 	map("n", "<M-`>", function()

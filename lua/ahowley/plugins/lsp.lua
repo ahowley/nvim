@@ -57,29 +57,6 @@ return { -- LSP Configuration & Plugins
 			config = function()
 				require("hover").setup({
 					init = function()
-						local colors = require("tokyonight.colors").setup()
-						local util = require("tokyonight.util")
-
-						vim.api.nvim_set_hl(
-							0,
-							"TNDiagnosticHint",
-							{ fg = util.lighten(colors.green, 0.5), bg = util.darken(colors.blue, 0.6) }
-						)
-						vim.api.nvim_set_hl(
-							0,
-							"TNDiagnosticWarning",
-							{ fg = util.lighten(colors.orange, 0.5), bg = util.darken(colors.blue, 0.6) }
-						)
-						vim.api.nvim_set_hl(
-							0,
-							"TNDiagnosticInfo",
-							{ fg = util.lighten(colors.blue, 0.5), bg = util.darken(colors.blue, 0.6) }
-						)
-						vim.api.nvim_set_hl(
-							0,
-							"TNDiagnosticError",
-							{ fg = util.lighten(colors.red, 0.5), bg = util.darken(colors.blue, 0.6) }
-						)
 						require("hover.providers.lsp")
 						require("hover").register({
 							name = "Diagnostic",
@@ -108,7 +85,7 @@ return { -- LSP Configuration & Plugins
 
 								done({
 									lines = vim.split(format_diagnostic(diagnostic), "\n"),
-									filetype = vim.bo.filetype,
+									filetype = "markdown",
 								})
 							end,
 						})
