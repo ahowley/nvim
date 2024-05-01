@@ -10,7 +10,6 @@ autocmd("TextYankPost", {
 	end,
 })
 
--- Remove whitespace on save
 autocmd("BufWritePre", {
 	desc = "Remove whitespace on save",
 	pattern = "",
@@ -23,5 +22,16 @@ autocmd("ModeChanged", {
 		vim.schedule(function()
 			vim.cmd("redraw")
 		end)
+	end,
+})
+
+autocmd("WinLeave", {
+	desc = "Close all floating windows when changing windows",
+	callback = function()
+		for _, window_id in ipairs(vim.api.nvim_list_wins()) do
+			if vim.api.nvim_win_get_config(window_id).relative ~= "" then
+				vim.api.nvim_win_close(window_id, false)
+			end
+		end
 	end,
 })
