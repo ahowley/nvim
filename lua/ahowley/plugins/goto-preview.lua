@@ -3,7 +3,10 @@ require("ahowley.remap")
 return {
 	"rmagatti/goto-preview",
 	config = function()
-		require("goto-preview").setup({})
+		require("goto-preview").setup({
+			width = 120,
+			height = 25,
+		})
 		map(
 			"n",
 			l("gp"),
@@ -24,7 +27,7 @@ return {
 		)
 		map("n", l("gD"), "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>", "[g]oto [D]eclaration")
 		map("n", l("gq"), "<cmd>lua require('goto-preview').close_all_win()<CR>", "[g]oto preview [q]uit")
-		map("n", l("gs"), "<C-w>v<C-[><cmd>lua require('goto-preview').close_all_win()<CR>", "[g]oto preview [s]plit")
+		map("n", l("gs"), "<C-w>v<C-[><CR><C-w>20<<CR>", "[g]oto preview [s]plit")
 		map("n", l("gr"), "<cmd>lua require('goto-preview').goto_preview_references()<CR>", "[g]oto [r]eferences")
 	end,
 }
