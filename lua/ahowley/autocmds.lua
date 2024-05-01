@@ -25,9 +25,13 @@ autocmd("ModeChanged", {
 	end,
 })
 
-autocmd("WinLeave", {
+autocmd("WinEnter", {
 	desc = "Close all floating windows when changing windows",
 	callback = function()
+		local current_window = vim.api.nvim_win_get_config(0)
+		if current_window.relative ~= "" then
+			return
+		end
 		for _, window_id in ipairs(vim.api.nvim_list_wins()) do
 			if vim.api.nvim_win_get_config(window_id).relative ~= "" then
 				vim.api.nvim_win_close(window_id, false)
