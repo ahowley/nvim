@@ -24,6 +24,7 @@ require("lazy").setup({
 	require("ahowley.plugins.typescript-tools"),
 	require("ahowley.plugins.action-hints"),
 	require("ahowley.plugins.actions-preview"),
+	require("ahowley.plugins.tabby"),
 	require("ahowley.plugins.feline"),
 	require("ahowley.plugins.tokyonight"),
 	require("ahowley.plugins.todo-comments"),
