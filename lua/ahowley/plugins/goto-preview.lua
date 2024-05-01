@@ -27,8 +27,6 @@ return {
 		)
 		map("n", l("gD"), "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>", "[g]oto [D]eclaration")
 		map("n", l("gq"), "<cmd>lua require('goto-preview').close_all_win()<CR>", "[g]oto preview [q]uit")
-		map("n", l("gs"), "<C-w>v<C-[><CR><C-w>30<<CR>", "[g]oto preview [s]plit")
-		map("n", l("g<leader>"), "<C-w>T<CR><cmd>tabonly<CR>", "[g]oto - fullscreen current window")
 		map("n", l("gr"), "<cmd>lua require('goto-preview').goto_preview_references()<CR>", "[g]oto [r]eferences")
 	end,
 }
