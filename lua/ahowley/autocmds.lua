@@ -1,3 +1,5 @@
+require("ahowley.remap")
+
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -32,10 +34,11 @@ autocmd("WinEnter", {
 		if current_window.relative ~= "" then
 			return
 		end
-		for _, window_id in ipairs(vim.api.nvim_list_wins()) do
-			if vim.api.nvim_win_get_config(window_id).relative ~= "" then
-				vim.api.nvim_win_close(window_id, false)
-			end
-		end
+		require("goto-preview").close_all_win()
+		-- for _, window_id in ipairs(vim.api.nvim_list_wins()) do
+		-- 	if vim.api.nvim_win_get_config(window_id).relative ~= "" then
+		-- 		vim.api.nvim_win_close(window_id, false)
+		-- 	end
+		-- end
 	end,
 })

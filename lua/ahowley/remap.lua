@@ -2,6 +2,11 @@ function l(s)
 	return "<leader>" .. s
 end
 
+function send_keys(keys)
+	local escaped = vim.api.nvim_replace_termcodes(keys, true, false, true)
+	vim.api.nvim_feedkeys(escaped, "m", false)
+end
+
 function map(mode, binding, action, description, opts)
 	opts = opts or {}
 	opts.desc = description
@@ -37,19 +42,23 @@ function mappings()
 	map("n", l("m"), "@", "Run [m]acro")
 
 	-- Toggle cmd line
-	map("n", "<M-`>", function()
+	map("n", l("Tc"), function()
 		if vim.o.cmdheight == 0 then
 			vim.o.cmdheight = 1
 		else
 			vim.o.cmdheight = 0
 		end
-	end, "Toggle Command Line")
+	end, "[T]oggle [c]ommand line")
+
+	-- Modes
+	map("n", l("x"), "<Esc><cmd>nohlsearch<CR>", "alternate escape key")
+	map("x", "v", "<Esc>`>", "alternate escape key")
+	map("x", "V", "<Esc>`<", "alternate escape key")
+	map("i", "jk", "<Esc>", "alternate escape key")
+	map("n", l("o"), "o<esc>", "add line below and jump")
+	map("n", l("O"), "O<esc>", "add line above and jump")
 
 	-- Navigate windows
-	map("n", "<C-h>", "<C-w><C-h>", "move to [w]indow on the left")
-	map("n", "<C-l>", "<C-w><C-l>", "move to [w]indow on the right")
-	map("n", "<C-k>", "<C-w><C-k>", "move to [w]indow above")
-	map("n", "<C-j>", "<C-w><C-j>", "move to [w]indow below")
 	map("n", l("wh"), "<C-w><C-h>", "move to [w]indow on the left")
 	map("n", l("wl"), "<C-w><C-l>", "move to [w]indow on the right")
 	map("n", l("wk"), "<C-w><C-k>", "move to [w]indow above")
@@ -58,13 +67,13 @@ function mappings()
 	map("n", l("ws"), "<C-w>v<C-[><CR><C-w>30<<CR>", "[w]indow [s]plit")
 	map("n", l("wb"), "<C-w>60><CR>", "[w]indow [b]ig")
 	map("n", l("wB"), "<C-w>60<<CR>", "[w]indow not [B]ig")
-	map("n", l("w<leader>"), "<C-w>T<CR><cmd>tabonly<CR>", "fullscreen current [w]indow")
+	map("n", l("wo"), "<C-w>o<CR>", "[w]indow [o]nly")
 	map("n", l("ww"), "<cmd>q<CR>", "[w]indow [w]rite")
 	map("n", l("wq"), "<cmd>q<CR>", "[w]indow [q]uit")
 
 	-- Navigate tabs
-	map("n", l("tn"), "gt<CR>", "[t]ab [n]ext")
-	map("n", l("tp"), "gT<CR>", "[t]ab [p]revious")
+	map("n", l("th"), "gt<CR>", "move to [t]ab on the left")
+	map("n", l("tl"), "gT<CR>", "move to [t]ab on the right")
 	map("n", l("t<leader>"), "<cmd>tab ba<CR>", "edit all buffers as [t]abs")
 	map("n", l("ts"), "<C-w>T<CR>", "[s]plit new [t]ab")
 	map("n", l("to"), "<cmd>tabonly<CR>", "[t]ab [o]nly")
@@ -79,4 +88,31 @@ function mappings()
 	map("n", l("t7"), "<cmd>7tabnext<CR>", "[t]ab [7]")
 	map("n", l("t8"), "<cmd>8tabnext<CR>", "[t]ab [8]")
 	map("n", l("t9"), "<cmd>9tabnext<CR>", "[t]ab [9]")
+
+	-- Special
+	map("n", l("ss"), "/", "[s]earch [s]earch")
+	map("n", l("sr"), function()
+		vim.ui.input({ prompt = "number of lines: " }, function(num_lines)
+			local search_string = ":+0,+" .. num_lines .. " s/"
+			vim.ui.input({ prompt = "search for: " }, function(search_for)
+				search_string = search_string .. search_for .. "/"
+				vim.ui.input({ prompt = "replace with: " }, function(replace_with)
+					search_string = search_string .. replace_with
+					send_keys(search_string)
+				end)
+			end)
+		end)
+	end, "[s]earch [r]eplace (forward, relative)")
+	map("n", l("sR"), function()
+		vim.ui.input({ prompt = "number of lines: " }, function(num_lines)
+			local search_string = ":-0,-" .. num_lines .. " s/"
+			vim.ui.input({ prompt = "search for: " }, function(search_for)
+				search_string = search_string .. search_for .. "/"
+				vim.ui.input({ prompt = "replace with: " }, function(replace_with)
+					search_string = search_string .. replace_with
+					send_keys(search_string)
+				end)
+			end)
+		end)
+	end, "[s]earch [R]eplace (backward, relative)")
 end

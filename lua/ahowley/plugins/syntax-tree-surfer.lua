@@ -18,6 +18,30 @@ return {
 			mode = { "n" },
 		},
 		{
+			l("J"),
+			"<cmd>STSSelectMasterNode<CR><cmd>STSSelectNextSiblingNode<CR><esc>`<",
+			desc = "select next sibling from parent",
+			mode = { "n" },
+		},
+		{
+			l("K"),
+			"<cmd>STSSelectMasterNode<CR><cmd>STSSelectPrevSiblingNode<CR><esc>`<",
+			desc = "select previous sibling from parent",
+			mode = { "n" },
+		},
+		{
+			l("j"),
+			"<cmd>STSSelectCurrentNode<CR><cmd>STSSelectNextSiblingNode<CR><esc>`<",
+			desc = "select next sibling",
+			mode = { "n" },
+		},
+		{
+			l("k"),
+			"<cmd>STSSelectCurrentNode<CR><cmd>STSSelectPrevSiblingNode<CR><esc>`<",
+			desc = "select previous sibling",
+			mode = { "n" },
+		},
+		{
 			"J",
 			"<cmd>STSSelectNextSiblingNode<CR>",
 			desc = "select next sibling",

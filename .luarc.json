@@ -4,6 +4,8 @@
         "mapreg",
         "map",
         "l",
-        "bufnr"
+        "bufnr",
+        "sendkeys",
+        "send_keys"
     ]
 }

@@ -18,6 +18,6 @@ return {
 		})
 		map("n", l("lf"), "<cmd>Neotree filesystem reveal current<CR>", "[l]ist [f]iles")
 		map("n", l("fe"), "<cmd>Neotree filesystem reveal current<CR>", "[f]ile [e]xplore")
-		map("n", l("te"), "<cmd>Neotree filesystem toggle right<CR>", "[t]oggle [e]xplore")
+		map("n", l("Te"), "<cmd>Neotree filesystem toggle right<CR>", "[T]oggle [e]xplore")
 	end,
 }

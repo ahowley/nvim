@@ -35,10 +35,10 @@ return {
 
 		map("n", l("ff"), builtin.find_files, "[f]ile [f]ind")
 		map("n", l("fv"), builtin.git_files, "[f]ile [v]ersioned")
-		map("n", l("fg"), builtin.live_grep, "[f]ile by [g]rep")
 
 		map("n", l("sc"), builtin.commands, "[s]earch [c]ommands")
 		map("n", l("sk"), builtin.keymaps, "[s]earch [k]eymaps")
+		map("n", l("sg"), builtin.live_grep, "[s]earch by [g]rep")
 		map("n", l("<leader>"), builtin.current_buffer_fuzzy_find, "[s]earch current buffer")
 
 		map("n", l("lb"), builtin.buffers, "[l]ist [b]uffers")

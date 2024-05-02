@@ -119,9 +119,9 @@ return { -- LSP Configuration & Plugins
 			require("hover").hover_switch("next")
 		end, "hover.nvim (next source)")
 		map("n", "<MouseMove>", require("hover").hover_mouse, "hover.nvim (mouse)")
-		map("n", l("ti"), function()
+		map("n", l("Ti"), function()
 			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-		end, "[t]oggle [i]nlay hints")
+		end, "[T]oggle [i]nlay hints")
 		map("n", l("cn"), "<cmd>Navbuddy<CR>", "[c]ode [n]avigate")
 
 		--  This function gets run when an LSP attaches to a particular buffer.
