@@ -226,6 +226,9 @@ return {
 						return ""
 					end
 				end,
+				short_provider = function()
+					return ""
+				end,
 				hl = function()
 					return {
 						fg = get_vim_color(1),
@@ -251,6 +254,7 @@ return {
 		local lsp_component = function(provider_str, base_color)
 			return {
 				provider = provider_str,
+				short_provider = "",
 				hl = {
 					fg = util.lighten(base_color, 0.5),
 					bg = util.darken(base_color, 0.5),

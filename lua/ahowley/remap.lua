@@ -68,7 +68,7 @@ function mappings()
 	map("n", l("wb"), "<C-w>60><CR>", "[w]indow [b]ig")
 	map("n", l("wB"), "<C-w>60<<CR>", "[w]indow not [B]ig")
 	map("n", l("wo"), "<C-w>o<CR>", "[w]indow [o]nly")
-	map("n", l("ww"), "<cmd>q<CR>", "[w]indow [w]rite")
+	map("n", l("ww"), "<cmd>w<CR>", "[w]indow [w]rite")
 	map("n", l("wq"), "<cmd>q<CR>", "[w]indow [q]uit")
 
 	-- Navigate tabs
