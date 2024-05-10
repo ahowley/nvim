@@ -66,6 +66,4 @@ vim.o.cmdheight = 0
 -- Set highlight on search
 vim.opt.hlsearch = true
 
-vim.g.have_nerd_font = true
-
 require("ahowley.autocmds")

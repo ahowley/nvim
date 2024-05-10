@@ -115,4 +115,11 @@ function mappings()
 			end)
 		end)
 	end, "[s]earch [R]eplace (backward, relative)")
+	map("n", l("Tn"), function()
+		if vim.opt.listchars.eol == "" then
+			vim.opt.listchars.eol = ""
+		else
+			vim.opt.listchars.eol = ""
+		end
+	end, "[T]oggle [n]ewlines")
 end
