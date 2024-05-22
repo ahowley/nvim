@@ -51,7 +51,6 @@ function mappings()
 	end, "[T]oggle [c]ommand line")
 
 	-- Modes
-	map("n", l("x"), "<Esc><cmd>nohlsearch<CR>", "alternate escape key")
 	map("x", "v", "<Esc>`>", "alternate escape key")
 	map("x", "V", "<Esc>`<", "alternate escape key")
 	map("i", "jk", "<Esc>", "alternate escape key")
@@ -90,6 +89,8 @@ function mappings()
 	map("n", l("t9"), "<cmd>9tabnext<CR>", "[t]ab [9]")
 
 	-- Special
+	map("n", "<tab>", "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")
+	map("n", "<S-tab>", "?[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "previous word (no punctuation)")
 	map("n", l("ss"), "/", "[s]earch [s]earch")
 	map("n", l("sr"), function()
 		vim.ui.input({ prompt = "number of lines: " }, function(num_lines)
