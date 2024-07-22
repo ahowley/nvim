@@ -18,7 +18,7 @@ require("lazy").setup({
 	require("ahowley.plugins.gitsigns"),
 	require("ahowley.plugins.nvim-surround"),
 	require("ahowley.plugins.conform"),
-	require("ahowley.plugins.auto-indent"),
+	require("ahowley.plugins.guess-indent"),
 	require("ahowley.plugins.nvim-autopairs"),
 	require("ahowley.plugins.inc-rename"),
 	require("ahowley.plugins.typescript-tools"),
