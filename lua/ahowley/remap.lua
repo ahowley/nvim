@@ -71,8 +71,8 @@ function Mappings()
 	Map("n", L("wq"), "<cmd>q<CR>", "[w]indow [q]uit")
 
 	-- Navigate tabs
-	Map("n", L("th"), "gt<CR>", "move to [t]ab on the left")
-	Map("n", L("tl"), "gT<CR>", "move to [t]ab on the right")
+	Map("n", L("th"), "gT<CR>", "move to [t]ab on the left")
+	Map("n", L("tl"), "gt<CR>", "move to [t]ab on the right")
 	Map("n", L("t<leader>"), "<cmd>tab ba<CR>", "edit all buffers as [t]abs")
 	Map("n", L("ts"), "<C-w>T<CR>", "[s]plit new [t]ab")
 	Map("n", L("to"), "<cmd>tabonly<CR>", "[t]ab [o]nly")

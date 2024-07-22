@@ -12,7 +12,7 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
 			else
 				gitsigns.nav_hunk("next")
 			end
-		end)
+		end, "next change")
 
 		Map("n", "[c", function()
 			if vim.wo.diff then
@@ -20,7 +20,7 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
 			else
 				gitsigns.nav_hunk("prev")
 			end
-		end)
+		end, "previous change")
 
 		-- Actions
 		Map("n", "<leader>hs", gitsigns.stage_hunk, "[h]unk [s]tage")
