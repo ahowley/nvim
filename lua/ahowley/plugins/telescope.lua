@@ -2,7 +2,7 @@ return {
 	"nvim-telescope/telescope.nvim",
 	tag = "0.1.6",
 	-- or                            , branch = '0.1.x',
-	event = "VimEnter", -- Sets the loading event to 'VimEnter'
+	event = "VeryLazy", -- Sets the loading event to 'VimEnter'
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		{ -- If encountering errors, see telescope-fzf-native README for installation instructions

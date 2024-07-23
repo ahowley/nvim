@@ -2,6 +2,7 @@ require("ahowley.remap")
 
 return {
 	"Arekkusuva/jira-nvim",
+	event = "VeryLazy",
 	cond = function()
 		if vim.env.JIRA_HOST == nil or vim.env.JIRA_TOKEN == nil then
 			return false

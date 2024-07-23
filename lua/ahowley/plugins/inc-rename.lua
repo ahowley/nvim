@@ -1,7 +1,8 @@
 return {
 	"smjonas/inc-rename.nvim",
+	event = "VeryLazy",
 	config = function()
-		require("inc_rename").setup()
+		require("inc_rename").setup({})
 
 		require("ahowley.remap")
 		Map("n", L("cr"), function()

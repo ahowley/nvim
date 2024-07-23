@@ -1,5 +1,6 @@
 return {
 	"ziontee113/syntax-tree-surfer",
+	event = "VeryLazy",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 	},

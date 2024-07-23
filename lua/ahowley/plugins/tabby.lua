@@ -17,7 +17,7 @@ end
 
 return {
 	"nanozuki/tabby.nvim",
-	event = "VimEnter",
+	event = "VeryLazy",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	config = function()
 		require("tabby.tabline").set(function(line)

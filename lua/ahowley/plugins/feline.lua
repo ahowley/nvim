@@ -67,6 +67,7 @@ end
 
 return {
 	"feline-nvim/feline.nvim",
+	event = "VimEnter",
 	config = function()
 		local colors = require("tokyonight.colors").setup()
 		local util = require("tokyonight.util")
