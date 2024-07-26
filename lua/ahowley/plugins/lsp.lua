@@ -178,7 +178,9 @@ return { -- LSP Configuration & Plugins
 			cssls = {},
 			dockerls = {},
 			emmet_ls = {},
-			html = {},
+			html = {
+				filetypes = { "ftl" },
+			},
 			jsonls = {},
 			sqlls = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs

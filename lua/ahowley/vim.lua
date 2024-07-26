@@ -69,4 +69,10 @@ vim.o.cmdheight = 0
 -- Set highlight on search
 vim.opt.hlsearch = true
 
+vim.filetype.add({
+	extension = {
+		ftl = "html",
+	},
+})
+
 require("ahowley.autocmds")
