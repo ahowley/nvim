@@ -18,7 +18,7 @@ end
 local function get_left_sep(darken)
 	return {
 		{
-			str = "slant_left",
+			str = "",
 			hl = function()
 				local vim_color = get_vim_color(darken)
 				return {
@@ -53,7 +53,7 @@ local function get_right_sep(darken)
 			end,
 		},
 		{
-			str = "slant_left",
+			str = "",
 			hl = function()
 				local vim_color = get_vim_color(darken)
 				return {
@@ -179,7 +179,7 @@ return {
 					bg = util.darken(colors.bg_visual, 0.5),
 				},
 				left_sep = {
-					str = "slant_left",
+					str = "",
 					hl = {
 						fg = util.darken(colors.bg_visual, 0.5),
 						bg = "bg",
@@ -194,7 +194,7 @@ return {
 						},
 					},
 					{
-						str = "slant_left",
+						str = "",
 						hl = {
 							fg = "bg",
 							bg = util.darken(colors.bg_visual, 0.5),
@@ -246,7 +246,7 @@ return {
 				provider = "",
 				hl = {
 					fg = colors.bg,
-					bg = colors.bg,
+					bg = "bg",
 				},
 				always_visible = true,
 			}
@@ -263,7 +263,7 @@ return {
 					bg = util.darken(base_color, 0.5),
 				},
 				left_sep = {
-					str = "slant_left",
+					str = "",
 					hl = {
 						fg = util.darken(base_color, 0.5),
 						bg = "bg",
@@ -278,7 +278,7 @@ return {
 						},
 					},
 					{
-						str = "slant_left",
+						str = "",
 						hl = {
 							fg = "bg",
 							bg = util.darken(base_color, 0.5),
