@@ -1,13 +1,13 @@
 require("ahowley.remap")
 
 return {
-	"hedyhli/outline.nvim",
-	event = "VeryLazy",
-	config = function()
-		require("outline").setup({
-			-- Your setup opts here (leave empty to use defaults)
-		})
+  "hedyhli/outline.nvim",
+  event = "VeryLazy",
+  config = function()
+    require("outline").setup({
+      -- Your setup opts here (leave empty to use defaults)
+    })
 
-		Map("n", L("Tu"), "<cmd>Outline<CR>", "[T]oggle o[u]tline")
-	end,
+    Map("n", L("Tu"), "<cmd>Outline<CR>", "[T]oggle o[u]tline")
+  end,
 }
