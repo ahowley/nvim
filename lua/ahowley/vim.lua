@@ -70,9 +70,10 @@ vim.o.cmdheight = 0
 vim.opt.hlsearch = true
 
 vim.filetype.add({
-	extension = {
-		ftl = "html",
-	},
+  extension = {
+    ftl = "html",
+  },
 })
+vim.lsp.inlay_hint.enable(true)
 
 require("ahowley.autocmds")
