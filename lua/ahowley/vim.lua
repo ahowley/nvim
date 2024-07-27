@@ -66,6 +66,12 @@ vim.opt.scrolloff = 15
 -- Hide command bar when not in active use
 vim.o.cmdheight = 0
 
+-- Code folding
+vim.o.foldmethod = "expr"
+-- vim.o.foldcolumn = "1"
+vim.o.foldlevel = 100
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+
 -- Set highlight on search
 vim.opt.hlsearch = true
 
