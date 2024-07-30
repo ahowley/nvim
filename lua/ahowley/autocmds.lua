@@ -3,10 +3,9 @@ require("ahowley.remap")
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
-augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  group = augroup("TextYankPostGroup", { clear = true }),
   callback = function()
     vim.highlight.on_yank()
   end,
@@ -14,12 +13,14 @@ autocmd("TextYankPost", {
 
 autocmd("BufWritePre", {
   desc = "Remove whitespace on save",
+  group = augroup("BufWritePreGroup", { clear = true }),
   pattern = "",
   command = ":%s/\\s\\+$//e",
 })
 
 autocmd("ModeChanged", {
   desc = "Redraw on mode change to avoid disappearing statusline",
+  group = augroup("ModeChangedGroup", { clear = true }),
   callback = function()
     vim.schedule(function()
       vim.cmd("redraw")
@@ -29,6 +30,7 @@ autocmd("ModeChanged", {
 
 autocmd("WinEnter", {
   desc = "Close all floating windows when changing windows",
+  group = augroup("WinEnterGroup", { clear = true }),
   callback = function()
     local current_window = vim.api.nvim_win_get_config(0)
     if current_window.relative ~= "" then return end
@@ -38,5 +40,17 @@ autocmd("WinEnter", {
     -- 		vim.api.nvim_win_close(window_id, false)
     -- 	end
     -- end
+  end,
+})
+
+vim.api.nvim_create_autocmd("VimResized", {
+  group = augroup("VimResizedGroup", { clear = true }),
+  pattern = "*",
+  desc = "Force redraw on window resize",
+  callback = function()
+    print("resized!")
+    vim.schedule(function()
+      vim.cmd("redraw")
+    end)
   end,
 })

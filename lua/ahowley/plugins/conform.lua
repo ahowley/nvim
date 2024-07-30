@@ -41,6 +41,7 @@ return { -- Autoformat
       html = { "prettierd" },
       ftl = { "prettierd" },
       json = { "prettierd" },
+      sql = { "sleek" },
     },
   },
 }

@@ -43,6 +43,7 @@ require("lazy").setup({
   require("ahowley.plugins.windows"),
   require("ahowley.plugins.nvim-neoclip"),
   require("ahowley.plugins.pretty-fold"),
+  require("ahowley.plugins.nvim-lsp-endhints"),
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
