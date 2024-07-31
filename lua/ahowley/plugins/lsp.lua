@@ -58,48 +58,45 @@ return { -- LSP Configuration & Plugins
       config = function()
         require("hover").setup({
           init = function()
-            require("hover.providers.lsp")
-            require("hover").register({
-              name = "Diagnostic",
-              priority = 1100,
-              enabled = function()
-                return true
-              end,
-              execute = function(opts, done)
-                if opts == nil or opts == false then
-                  done(nil)
-                  return
-                end
-
-                local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-                local current_line_diagnostics = vim.diagnostic.get(0, {
-                  lnum = row - 1,
-                })
-
-                local diagnostic = current_line_diagnostics[1]
-                if diagnostic == nil then
-                  done(nil)
-                  return
-                end
-
-                print(format_diagnostic(diagnostic))
-
-                done({
-                  lines = vim.split(format_diagnostic(diagnostic), "\n"),
-                  filetype = "markdown",
-                })
-              end,
-            })
+            require("hover.providers.fold_preview")
+            require("hover.providers.diagnostic")
+            -- require("hover").register({
+            --   name = "Diagnostic",
+            --   priority = 1100,
+            --   enabled = function()
+            --     return true
+            --   end,
+            --   execute = function(opts, done)
+            --     if opts == nil or opts == false then
+            --       done(nil)
+            --       return
+            --     end
+            --
+            --     local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+            --     local current_line_diagnostics = vim.diagnostic.get(0, {
+            --       lnum = row - 1,
+            --     })
+            --
+            --     local diagnostic = current_line_diagnostics[1]
+            --     if diagnostic == nil then
+            --       done(nil)
+            --       return
+            --     end
+            --
+            --     print(format_diagnostic(diagnostic))
+            --
+            --     done({
+            --       lines = vim.split(format_diagnostic(diagnostic), "\n"),
+            --       filetype = "markdown",
+            --     })
+            --   end,
+            -- })
           end,
           preview_opts = {
             border = "rounded",
           },
           preview_window = true,
           title = false,
-          mouse_providers = {
-            "LSP",
-          },
-          mouse_delay = 300,
         })
       end,
     },
@@ -119,7 +116,6 @@ return { -- LSP Configuration & Plugins
       ---@diagnostic disable-next-line: missing-parameter
       require("hover").hover_switch("next")
     end, "hover.nvim (next source)")
-    Map("n", "<MouseMove>", require("hover").hover_mouse, "hover.nvim (mouse)")
     Map("n", L("Ti"), function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     end, "[T]oggle [i]nlay hints")

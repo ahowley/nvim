@@ -43,14 +43,28 @@ autocmd("WinEnter", {
   end,
 })
 
-vim.api.nvim_create_autocmd("VimResized", {
-  group = augroup("VimResizedGroup", { clear = true }),
-  pattern = "*",
-  desc = "Force redraw on window resize",
+-- autocmd("VimResized", {
+--   group = augroup("VimResizedGroup", { clear = true }),
+--   pattern = "*",
+--   desc = "Force redraw on window resize",
+--   callback = function()
+--     print("resized!")
+--     vim.schedule(function()
+--       vim.cmd("redraw")
+--     end)
+--   end,
+-- })
+
+autocmd("ColorScheme", {
+  desc = "Reset float bg and border colors",
+  group = augroup("FooBar", { clear = true }),
+  pattern = "",
   callback = function()
-    print("resized!")
     vim.schedule(function()
-      vim.cmd("redraw")
+      vim.cmd([[
+        highlight NormalFloat guifg=none guibg=none
+        highlight FloatBorder guifg=none guibg=none
+      ]])
     end)
   end,
 })
