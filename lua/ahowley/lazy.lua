@@ -39,6 +39,7 @@ require("lazy").setup({
   require("ahowley.plugins.goto-preview"),
   require("ahowley.plugins.jira-nvim"),
   require("ahowley.plugins.markdown-preview"),
+  require("ahowley.plugins.markdown-nvim"),
   require("ahowley.plugins.git-conflict-nvim"),
   require("ahowley.plugins.diffview"),
   require("ahowley.plugins.windows"),
