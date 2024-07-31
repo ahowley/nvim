@@ -51,7 +51,7 @@ return { -- LSP Configuration & Plugins
         "SmiteshP/nvim-navic",
         "MunifTanjim/nui.nvim",
       },
-      opts = { lsp = { auto_attach = false } },
+      opts = { lsp = { auto_attach = true } },
     },
     {
       "lewis6991/hover.nvim",
@@ -148,7 +148,7 @@ return { -- LSP Configuration & Plugins
             callback = vim.lsp.buf.clear_references,
           })
 
-          require("nvim-navbuddy").attach(client, event.buf)
+          -- require("nvim-navbuddy").attach(client, event.buf)
         end
       end,
     })
