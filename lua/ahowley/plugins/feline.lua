@@ -367,8 +367,14 @@ return {
       inactive = {},
     }
 
+    vim.cmd.highlight("MsgArea guibg=" .. colors.bg_statusline)
+
     require("feline").setup({
       components = status_components,
+    })
+
+    require("feline").use_theme({
+      bg = colors.bg_statusline,
     })
 
     local winbar_components = {
