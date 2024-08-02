@@ -38,8 +38,9 @@ function Mappings()
     vim.diagnostic.goto_next({ float = false })
   end, "Go to next [d]iagnostic")
 
-  -- Easier to reach macro key
+  -- Easier to reach macro/mark keys
   Map("n", L("m"), "@", "Run [m]acro")
+  Map("n", L("gm"), "`", "[g]oto [m]ark")
 
   -- Toggle cmd line
   Map("n", L("Tc"), function()
@@ -90,8 +91,8 @@ function Mappings()
   Map("n", L("t9"), "<cmd>9tabnext<CR>", "[t]ab [9]")
 
   -- Special
-  Map("n", "<tab>", "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")
-  Map("n", "<S-tab>", "?[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "previous word (no punctuation)")
+  -- Map("n", "<tab>", "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")
+  -- Map("n", "<S-tab>", "?[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "previous word (no punctuation)")
   Map("n", L("ss"), "/", "[s]earch [s]earch")
   Map("n", L("sr"), function()
     vim.ui.input({ prompt = "number of lines: " }, function(num_lines)

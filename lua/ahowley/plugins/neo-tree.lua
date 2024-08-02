@@ -14,10 +14,12 @@ return {
     require("neo-tree").setup({
       window = {
         position = "current",
+        mappings = {
+          ["<cr>"] = "open",
+        },
       },
     })
     Map("n", L("lf"), "<cmd>Neotree filesystem reveal current<CR>", "[l]ist [f]iles")
     Map("n", L("fe"), "<cmd>Neotree filesystem toggle right<CR>", "[f]ile [e]xplore")
-    Map("n", L("Te"), "<cmd>Neotree filesystem toggle right<CR>", "[T]oggle [e]xplore")
   end,
 }
