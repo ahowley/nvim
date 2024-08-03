@@ -18,8 +18,9 @@ return {
           ["<cr>"] = "open",
         },
       },
+      popup_border_style = "rounded",
     })
     Map("n", L("lf"), "<cmd>Neotree filesystem reveal current<CR>", "[l]ist [f]iles")
-    Map("n", L("fe"), "<cmd>Neotree filesystem toggle right<CR>", "[f]ile [e]xplore")
+    Map("n", L("fe"), "<cmd>Neotree float filesystem<CR>", "[f]ile [e]xplore")
   end,
 }

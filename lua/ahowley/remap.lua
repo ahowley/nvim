@@ -93,6 +93,8 @@ function Mappings()
   -- Special
   -- Map("n", "<tab>", "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")
   -- Map("n", "<S-tab>", "?[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "previous word (no punctuation)")
+  Map("n", "\\", "f|", "Find next |")
+  Map("n", "|", "f|", "Find previous |")
   Map("n", L("ss"), "/", "[s]earch [s]earch")
   Map("n", L("sr"), function()
     vim.ui.input({ prompt = "number of lines: " }, function(num_lines)
