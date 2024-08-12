@@ -54,6 +54,9 @@ return { -- LSP Configuration & Plugins
       opts = { lsp = { auto_attach = true } },
     },
     {
+      "Hoffs/omnisharp-extended-lsp.nvim",
+    },
+    {
       "lewis6991/hover.nvim",
       config = function()
         require("hover").setup({
