@@ -72,6 +72,7 @@ vim.o.foldmethod = "expr"
 -- vim.o.foldcolumn = "1"
 vim.o.foldlevel = 100
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldtext = "nvim_treesitter#foldtext()"
 
 -- Set highlight on search
 vim.opt.hlsearch = true

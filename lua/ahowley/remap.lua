@@ -39,8 +39,8 @@ function Mappings()
   end, "Go to next [d]iagnostic")
 
   -- Easier to reach macro/mark keys
-  Map("n", L("m"), "@", "Run [m]acro")
-  Map("n", L("gm"), "`", "[g]oto [m]ark")
+  Map("n", L("q"), "@", "Run [q]acro")
+  Map("n", "M", "`", "[g]oto [m]ark")
 
   -- Toggle cmd line
   Map("n", L("Tc"), function()
@@ -90,36 +90,18 @@ function Mappings()
   Map("n", L("t8"), "<cmd>8tabnext<CR>", "[t]ab [8]")
   Map("n", L("t9"), "<cmd>9tabnext<CR>", "[t]ab [9]")
 
-  -- Special
-  -- Map("n", "<tab>", "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")
-  -- Map("n", "<S-tab>", "?[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "previous word (no punctuation)")
+  -- Buffer
+  Map("n", L("va"), "ggVG", "[v]elect all")
+  Map("n", L("vy"), 'ggVG"+y<C-o>', "[v]ank all")
+
+  -- Markdown
   Map("n", "\\", "f|", "Find next |")
   Map("n", "|", "F|", "Find previous |")
-  Map("n", L("ss"), "/", "[s]earch [s]earch")
-  Map("n", L("sr"), function()
-    vim.ui.input({ prompt = "number of lines: " }, function(num_lines)
-      local search_string = ":+0,+" .. num_lines .. " s/"
-      vim.ui.input({ prompt = "search for: " }, function(search_for)
-        search_string = search_string .. search_for .. "/"
-        vim.ui.input({ prompt = "replace with: " }, function(replace_with)
-          search_string = search_string .. replace_with
-          SendKeys(search_string)
-        end)
-      end)
-    end)
-  end, "[s]earch [r]eplace (forward, relative)")
-  Map("n", L("sR"), function()
-    vim.ui.input({ prompt = "number of lines: " }, function(num_lines)
-      local search_string = ":-0,-" .. num_lines .. " s/"
-      vim.ui.input({ prompt = "search for: " }, function(search_for)
-        search_string = search_string .. search_for .. "/"
-        vim.ui.input({ prompt = "replace with: " }, function(replace_with)
-          search_string = search_string .. replace_with
-          SendKeys(search_string)
-        end)
-      end)
-    end)
-  end, "[s]earch [R]eplace (backward, relative)")
+
+  -- Special
+  Map("n", L("<tab>"), "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")
+  Map("n", L("<S-tab>"), "?[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "previous word (no punctuation)")
+
   Map("n", L("Tn"), function()
     if vim.opt.listchars.eol == "" then
       vim.opt.listchars.eol = ""

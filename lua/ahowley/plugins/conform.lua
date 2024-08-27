@@ -20,6 +20,8 @@ return { -- Autoformat
       local disable_filetypes = {
         c = true,
         cpp = true,
+        cs = true,
+        ftl = true,
       }
       return {
         timeout_ms = 500,
@@ -38,8 +40,8 @@ return { -- Autoformat
       markdown = { "prettierd" },
       bash = { "prettierd" },
       sh = { "prettierd" },
-      html = { "prettierd" },
-      ftl = { "prettierd" },
+      html = { "prettierd", "prettier" },
+      ftl = { "prettierd", "prettier" },
       json = { "prettierd" },
       sql = { "sleek" },
       cs = { "csharpier" },
