@@ -26,7 +26,25 @@ return {
   config = function()
     require("ahowley.remap")
 
-    require("telescope").setup({})
+    require("telescope").setup({
+      pickers = {
+        find_files = {
+          hidden = true,
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--no-ignore-vcs",
+            "-g",
+            "!**/.git/*",
+            "-g",
+            "!**/node_modules/*",
+            "-g",
+            "!**/.repro/*",
+          },
+        },
+      },
+    })
 
     local builtin = require("telescope.builtin")
 

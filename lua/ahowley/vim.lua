@@ -91,4 +91,5 @@ vim.filetype.add({
 
 vim.lsp.inlay_hint.enable(true)
 
+
 require("ahowley.autocmds")

@@ -98,6 +98,22 @@ function Mappings()
   Map("n", "\\", "f|", "Find next |")
   Map("n", "|", "F|", "Find previous |")
 
+  -- Freemarker
+  -- \v\<(\#|\/\#)(\_[^>]+)\>
+  Map(
+    "n",
+    L("af"),
+    "<cmd>%s/\\v\\<(\\#|\\/\\#)(\\_[^>]+)\\>/[\\1\\2]/g<CR>",
+    "[a]ction [f]reemarker"
+  )
+  -- \v\[(\#|\/\#)(\_[^]]+)\]
+  Map(
+    "n",
+    L("aF"),
+    "<cmd>%s/\\v\\[(\\#|\\/\\#)(\\_[^]]+)\\]/<\\1\\2>/g<CR>",
+    "[a]ction [F]reemarker reverse"
+  )
+
   -- Special
   Map("n", L("<tab>"), "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")
   Map("n", L("<S-tab>"), "?[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "previous word (no punctuation)")
