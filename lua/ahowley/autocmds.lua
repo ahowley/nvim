@@ -69,7 +69,7 @@ autocmd("ModeChanged", {
   group = augroup("ModeChangedGroup", { clear = true }),
   callback = function()
     vim.schedule(function()
-      recolor_indents()
+      -- recolor_indents()
       vim.cmd("redraw")
     end)
   end,

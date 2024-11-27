@@ -184,7 +184,9 @@ return { -- LSP Configuration & Plugins
         filetypes = { "ftl" },
       },
       ruff = {},
-      jsonls = {},
+      jsonls = {
+        autostart = false,
+      },
       sqlls = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 
