@@ -68,11 +68,11 @@ vim.opt.scrolloff = 15
 vim.o.cmdheight = 0
 
 -- Code folding
-vim.o.foldmethod = "expr"
+vim.o.foldmethod = "indent"
 -- vim.o.foldcolumn = "1"
 vim.o.foldlevel = 100
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldtext = "nvim_treesitter#foldtext()"
+-- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.o.foldtext = "nvim_treesitter#foldtext()"
 
 -- Set highlight on search
 vim.opt.hlsearch = true
@@ -90,6 +90,5 @@ vim.filetype.add({
 })
 
 vim.lsp.inlay_hint.enable(true)
-
 
 require("ahowley.autocmds")

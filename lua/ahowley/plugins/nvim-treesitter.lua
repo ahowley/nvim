@@ -26,6 +26,10 @@ return { -- Highlight, edit, and navigate code
       --  If you are experiencing weird indenting issues, add the language to
       --  the list of additional_vim_regex_highlighting and disabled languages for indent.
       additional_vim_regex_highlighting = { "ruby" },
+      max_file_lines = 10000,
+      disable = function(lang, bufnr)
+        return vim.fn.getfsize(vim.api.nvim_buf_get_name(bufnr)) > 1048576
+      end,
     },
     indent = { enable = false, disable = { "ruby" } },
   },
