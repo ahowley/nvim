@@ -5,13 +5,12 @@ return {
   event = "VeryLazy",
   dependencies = {
     "anuvyklack/middleclass",
-    "anuvyklack/animation.nvim",
+    -- "anuvyklack/animation.nvim",
   },
   config = function()
     vim.o.winwidth = 20
     vim.o.winminwidth = 10
     vim.o.equalalways = false
-    require("windows").setup()
 
     Map("n", L("w+"), ":WindowsMaximize<CR>", "[w]indow +aximize")
     Map("n", L("w|"), ":WindowsMaximizeVertically<CR>", "[w]indow maximize |ertically")
