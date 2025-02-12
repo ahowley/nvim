@@ -17,5 +17,7 @@ return {
     Map("n", L("w_"), ":WindowsMaximizeHorizontally<CR>", "[w]indow maximize _orizontally")
     Map("n", L("w="), ":WindowsEqualize<CR>", "[w]indow =qualize")
     Map("n", L("tw"), ":WindowsToggleAutowidth<CR>", "[t]oggle [w]indow autowidth")
+
+    require("windows").setup()
   end,
 }
