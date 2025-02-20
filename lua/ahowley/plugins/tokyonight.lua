@@ -12,6 +12,6 @@ return { -- You can easily change to a different colorscheme.
       transparent = true,
       -- dim_inactive = true,
     })
-    -- vim.cmd.colorscheme("tokyonight-night")
+    vim.cmd.colorscheme("tokyonight-night")
   end,
 }
