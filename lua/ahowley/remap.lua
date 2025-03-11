@@ -90,6 +90,9 @@ function Mappings()
   Map("n", L("t8"), "<cmd>8tabnext<CR>", "[t]ab [8]")
   Map("n", L("t9"), "<cmd>9tabnext<CR>", "[t]ab [9]")
 
+  -- Scroll
+  Map("n", L("sb"), "<cmd>set scb!<CR>", "toggle [s]croll[b]ind")
+
   -- Buffer
   Map("n", L("va"), "ggVG", "[v]elect all")
   Map("n", L("vy"), 'ggVG"+y<C-o>', "[v]ank all")

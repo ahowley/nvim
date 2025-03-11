@@ -7,7 +7,7 @@ return { -- Useful plugin to show you pending keybinds.
     require("which-key").setup()
 
     MapReg(L("f"), "[f]ile")
-    MapReg(L("s"), "[s]earch, [s]tatus")
+    MapReg(L("s"), "[s]earch, [s]tatus, [s]croll")
     MapReg(L("S"), "[S]tatus")
     MapReg(L("l"), "[l]ist")
     MapReg(L("g"), "[g]oto")
