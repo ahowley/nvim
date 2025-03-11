@@ -114,6 +114,27 @@ function Mappings()
     "[a]ction [F]reemarker reverse"
   )
 
+  -- nvim-dap
+  Map("n", L("dc"), "<cmd>lua require'dap'.continue()<CR>", "[d]ebug [c]ontinue")
+  Map("n", L("dl"), "<cmd>lua require'dap'.step_over()<CR>", "[d]ebug step over (right)")
+  Map("n", L("dj"), "<cmd>lua require'dap'.step_into()<CR>", "[d]ebug step into (down)")
+  Map("n", L("dk"), "<cmd>lua require'dap'.step_out()<CR>", "[d]ebug step out (up)")
+  Map("n", L("db"), "<cmd>lua require'dap'.step_out()<CR>", "[d]ebug toggle [b]reakpoint")
+  Map(
+    "n",
+    L("dB"),
+    "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+    "[d]ebug set [B]reakpoint condition"
+  )
+  Map(
+    "n",
+    L("dp"),
+    "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+    "[d]ebug log [p]oint message"
+  )
+  Map("n", L("dr"), "<cmd>lua require'dap'.repl.open()<CR>", "[d]ebug open [r]epl")
+  Map("n", L("dl"), "<cmd>lua require'dap'.run_last()<CR>", "[d]ebug run [l]ast")
+
   -- Special
   Map("n", L("<tab>"), "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")
   Map("n", L("<S-tab>"), "?[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "previous word (no punctuation)")
