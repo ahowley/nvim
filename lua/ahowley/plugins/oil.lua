@@ -211,7 +211,7 @@ return {
   config = function(_, opts)
     require("oil").setup(opts)
 
-    Map("n", L("lf"), "<cmd>Oil " .. vim.fn.getcwd() .. "<CR>", "[l]ist [f]iles")
-    Map("n", L("fe"), "<cmd>Oil --float " .. vim.fn.getcwd() .. "<CR>", "[f]ile [e]xplorer")
+    Map("n", L("lf"), "<cmd>Oil<CR>", "[l]ist [f]iles")
+    Map("n", L("fe"), "<cmd>Oil --float<CR>", "[f]ile [e]xplorer")
   end,
 }
