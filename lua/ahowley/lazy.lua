@@ -30,7 +30,8 @@ require("lazy").setup({
   require("ahowley.plugins.todo-comments"),
   require("ahowley.plugins.mini"),
   require("ahowley.plugins.symbols-outline"),
-  require("ahowley.plugins.neo-tree"),
+  -- require("ahowley.plugins.neo-tree"),
+  require("ahowley.plugins.oil"),
   require("ahowley.plugins.nvim-treesitter"),
   require("ahowley.plugins.nvim-treesitter-context"),
   require("ahowley.plugins.syntax-tree-surfer"),
@@ -51,6 +52,8 @@ require("lazy").setup({
   require("ahowley.plugins.vague"),
   require("ahowley.plugins.nvim-dap"),
   require("ahowley.plugins.vim-highlighter"),
+  require("ahowley.plugins.dial"),
+  require("ahowley.plugins.csvview"),
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table

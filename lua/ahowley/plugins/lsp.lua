@@ -222,13 +222,6 @@ return { -- LSP Configuration & Plugins
       "ruff",
     })
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-    require("lspconfig").ruff.setup({
-      init_options = {
-        settings = {
-          configuration = "~/path/to/ruff.toml",
-        },
-      },
-    })
 
     require("mason-lspconfig").setup({
       handlers = {

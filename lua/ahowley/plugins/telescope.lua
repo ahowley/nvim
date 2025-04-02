@@ -22,34 +22,57 @@ return {
 
     -- Useful for getting pretty icons, but requires a Nerd Font.
     { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+    { "jonarrien/telescope-cmdline.nvim" },
   },
-  config = function()
-    require("ahowley.remap")
-
-    require("telescope").setup({
-      pickers = {
-        find_files = {
-          hidden = true,
-          find_command = {
-            "rg",
-            "--files",
-            "--hidden",
-            "--no-ignore-vcs",
-            "-g",
-            "!**/.git/*",
-            "-g",
-            "!**/node_modules/*",
-            "-g",
-            "!**/.repro/*",
-          },
+  opts = {
+    pickers = {
+      find_files = {
+        hidden = true,
+        find_command = {
+          "rg",
+          "--files",
+          "--hidden",
+          "--no-ignore-vcs",
+          "-g",
+          "!**/.git/*",
+          "-g",
+          "!**/node_modules/*",
+          "-g",
+          "!**/.repro/*",
         },
       },
-    })
+    },
+    extensions = {
+      cmdline = {
+        -- Adjust telescope picker size and layout
+        picker = {
+          layout_config = {
+            width = 120,
+            height = 25,
+          },
+        },
+        -- Adjust your mappings
+        mappings = {
+          complete = "<C-y>",
+          run_selection = "<C-CR>",
+          run_input = "<CR>",
+        },
+        -- Triggers any shell command using overseer.nvim (`:!`)
+        overseer = {
+          enabled = false,
+        },
+      },
+    },
+  },
+  config = function(_, opts)
+    require("ahowley.remap")
+
+    require("telescope").setup(opts)
 
     local builtin = require("telescope.builtin")
 
-    pcall(require("telescope").load_extension, "fzf")
-    pcall(require("telescope").load_extension, "ui-select")
+    require("telescope").load_extension("fzf")
+    require("telescope").load_extension("ui-select")
 
     Map("n", L("ff"), builtin.find_files, "[f]ile [f]ind")
     Map("n", L("fv"), builtin.git_files, "[f]ile [v]ersioned")
@@ -57,7 +80,7 @@ return {
     Map("n", L("sc"), builtin.commands, "[s]earch [c]ommands")
     Map("n", L("sk"), builtin.keymaps, "[s]earch [k]eymaps")
     Map("n", L("sg"), builtin.live_grep, "[s]earch by [g]rep")
-    Map("n", L("<leader>"), builtin.current_buffer_fuzzy_find, "[s]earch current buffer")
+    Map("n", L("sf"), builtin.current_buffer_fuzzy_find, "[s]earch current [f]ile fuzzy")
 
     Map("n", L("lb"), builtin.buffers, "[l]ist [b]uffers")
     Map("n", L("lc"), builtin.command_history, "[l]ist [c]ommand history")
@@ -77,5 +100,8 @@ return {
     -- map("n", l("gi"), builtin.lsp_implementations, "[g]oto [i]mplementation(s)")
     Map("n", L("gd"), builtin.lsp_definitions, "[g]oto [d]efinition(s)")
     -- map("n", l("gt"), builtin.lsp_type_definitions, "[g]oto [t]ype definition(s)")
+
+    require("telescope").load_extension("cmdline")
+    Map("n", L("<leader>"), "<cmd>Telescope cmdline<CR>", "telescope-cmdline")
   end,
 }
