@@ -115,3 +115,7 @@ autocmd("ColorScheme", {
     end)
   end,
 })
+
+vim.cmd([[
+    autocmd FileType alpha setlocal nofoldenable
+]])
