@@ -90,18 +90,6 @@ autocmd("WinEnter", {
   end,
 })
 
--- autocmd("VimResized", {
---   group = augroup("VimResizedGroup", { clear = true }),
---   pattern = "*",
---   desc = "Force redraw on window resize",
---   callback = function()
---     print("resized!")
---     vim.schedule(function()
---       vim.cmd("redraw")
---     end)
---   end,
--- })
-
 autocmd("ColorScheme", {
   desc = "Reset float bg and border colors",
   group = augroup("FooBar", { clear = true }),
