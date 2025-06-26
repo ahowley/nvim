@@ -9,7 +9,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "tpope/vim-sleuth",
-  require("ahowley.plugins.lsp"),
+  require("ahowley.plugins.lsp-setup"),
   require("ahowley.plugins.lsp_signature"),
   require("ahowley.plugins.nvim-cmp"),
   require("ahowley.plugins.telescope"),
@@ -22,6 +22,7 @@ require("lazy").setup({
   require("ahowley.plugins.nvim-autopairs"),
   require("ahowley.plugins.inc-rename"),
   require("ahowley.plugins.typescript-tools"),
+  require("ahowley.plugins.roslyn"),
   require("ahowley.plugins.action-hints"),
   require("ahowley.plugins.actions-preview"),
   require("ahowley.plugins.tabby"),

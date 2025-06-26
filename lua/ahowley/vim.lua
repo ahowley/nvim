@@ -83,12 +83,4 @@ vim.filetype.add({
   },
 })
 
-vim.filetype.add({
-  extension = {
-    sqlfluff = "cfg",
-  },
-})
-
-vim.lsp.inlay_hint.enable(true)
-
 require("ahowley.autocmds")
