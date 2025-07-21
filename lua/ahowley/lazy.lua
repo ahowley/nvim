@@ -50,6 +50,7 @@ require("lazy").setup({
   require("ahowley.plugins.nvim-lsp-endhints"),
   require("ahowley.plugins.posterpole"),
   require("ahowley.plugins.kanagawa"),
+  require("ahowley.plugins.catppuccin"),
   require("ahowley.plugins.vague"),
   require("ahowley.plugins.nvim-dap"),
   require("ahowley.plugins.vim-highlighter"),
