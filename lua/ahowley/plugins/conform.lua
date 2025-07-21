@@ -62,6 +62,7 @@ return { -- Autoformat
       sql = { "sleek" },
       cs = { "csharpier" },
       xml = { "xmlformatter" },
+      yaml = { "yamlfmt" },
     },
   },
 }

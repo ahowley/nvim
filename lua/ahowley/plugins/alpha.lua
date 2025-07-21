@@ -662,10 +662,10 @@ return {
     dashboard.section.header.val = vim.split(neovims[math.random(#neovims)], "\n")
 
     dashboard.section.buttons.val = {
-      dashboard.button("e", "  > New file", ":ene <BAR> startinsert <CR>"),
-      dashboard.button("f", "  > Find file", "<cmd>Telescope find_files<CR>"),
-      dashboard.button("r", "  > Recent", "<cmd>Telescope oldfiles<CR>"),
-      dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
+      dashboard.button("n", "  > New file", ":ene <BAR> startinsert <CR>"),
+      dashboard.button("f", "  > Find file", "<cmd>Telescope find_files<CR>"),
+      dashboard.button("e", "  > Explore", "<cmd>Oil --float<CR>"),
+      dashboard.button("q", "  > Quit NVIM", "<cmd>qa<CR>"),
     }
 
     require("alpha").setup(dashboard.config)
