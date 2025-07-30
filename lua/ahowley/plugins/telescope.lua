@@ -41,6 +41,9 @@ return {
           "!**/.repro/*",
         },
       },
+      colorscheme = {
+        enable_preview = true,
+      },
     },
     extensions = {
       cmdline = {
@@ -100,6 +103,8 @@ return {
     -- map("n", l("gi"), builtin.lsp_implementations, "[g]oto [i]mplementation(s)")
     Map("n", L("gd"), builtin.lsp_definitions, "[g]oto [d]efinition(s)")
     -- map("n", l("gt"), builtin.lsp_type_definitions, "[g]oto [t]ype definition(s)")
+    --
+    Map("n", L("sC"), "<cmd>Telescope colorscheme<CR>", "[s]earch [C]olorschemes")
 
     require("telescope").load_extension("cmdline")
     Map("n", L("<leader>"), "<cmd>Telescope cmdline<CR>", "telescope-cmdline")
