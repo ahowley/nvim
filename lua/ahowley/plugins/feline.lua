@@ -169,38 +169,38 @@ return {
       }
     end
 
-    local function action_component()
-      return {
-        provider = require("action-hints").statusline,
-        hl = {
-          fg = util.lighten(colors.bg_visual, 0.5),
-          bg = util.darken(colors.bg_visual, 0.5),
-        },
-        left_sep = {
-          str = "",
-          hl = {
-            fg = util.darken(colors.bg_visual, 0.5),
-            bg = "bg",
-          },
-        },
-        right_sep = {
-          {
-            str = " ",
-            hl = {
-              fg = util.darken(colors.bg_visual, 0.5),
-              bg = util.darken(colors.bg_visual, 0.5),
-            },
-          },
-          {
-            str = "",
-            hl = {
-              fg = "bg",
-              bg = util.darken(colors.bg_visual, 0.5),
-            },
-          },
-        },
-      }
-    end
+    -- local function action_component()
+    --   return {
+    --     provider = require("action-hints").statusline,
+    --     hl = {
+    --       fg = util.lighten(colors.bg_visual, 0.5),
+    --       bg = util.darken(colors.bg_visual, 0.5),
+    --     },
+    --     left_sep = {
+    --       str = "",
+    --       hl = {
+    --         fg = util.darken(colors.bg_visual, 0.5),
+    --         bg = "bg",
+    --       },
+    --     },
+    --     right_sep = {
+    --       {
+    --         str = " ",
+    --         hl = {
+    --           fg = util.darken(colors.bg_visual, 0.5),
+    --           bg = util.darken(colors.bg_visual, 0.5),
+    --         },
+    --       },
+    --       {
+    --         str = "",
+    --         hl = {
+    --           fg = "bg",
+    --           bg = util.darken(colors.bg_visual, 0.5),
+    --         },
+    --       },
+    --     },
+    --   }
+    -- end
 
     local function search_component()
       return {
@@ -346,7 +346,7 @@ return {
           vi_mode_component(),
           git_component(),
           file_component(),
-          action_component(),
+          -- action_component(),
           blank_component(),
         },
         {

@@ -8,55 +8,95 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  "tpope/vim-sleuth",
-  require("ahowley.plugins.lsp-setup"),
-  require("ahowley.plugins.lsp_signature"),
-  require("ahowley.plugins.nvim-cmp"),
-  require("ahowley.plugins.telescope"),
-  require("ahowley.plugins.which-key"),
-  require("ahowley.plugins.comment"),
-  require("ahowley.plugins.gitsigns"),
-  require("ahowley.plugins.nvim-surround"),
-  require("ahowley.plugins.conform"),
-  require("ahowley.plugins.guess-indent"),
-  require("ahowley.plugins.nvim-autopairs"),
-  require("ahowley.plugins.inc-rename"),
-  require("ahowley.plugins.typescript-tools"),
-  require("ahowley.plugins.roslyn"),
-  require("ahowley.plugins.action-hints"),
-  require("ahowley.plugins.actions-preview"),
-  require("ahowley.plugins.tabby"),
-  require("ahowley.plugins.feline"),
+  -- -- Themes
   require("ahowley.plugins.tokyonight"),
-  require("ahowley.plugins.todo-comments"),
-  require("ahowley.plugins.mini"),
-  require("ahowley.plugins.symbols-outline"),
-  -- require("ahowley.plugins.neo-tree"),
-  require("ahowley.plugins.oil"),
-  require("ahowley.plugins.nvim-treesitter"),
-  require("ahowley.plugins.nvim-treesitter-context"),
-  require("ahowley.plugins.syntax-tree-surfer"),
-  require("ahowley.plugins.rust-tools"),
-  require("ahowley.plugins.nvim-lightbulb"),
-  require("ahowley.plugins.goto-preview"),
-  require("ahowley.plugins.markdown-preview"),
-  require("ahowley.plugins.markdown-nvim"),
-  require("ahowley.plugins.git-conflict-nvim"),
-  require("ahowley.plugins.diffview"),
-  require("ahowley.plugins.windows"),
-  require("ahowley.plugins.nvim-neoclip"),
-  require("ahowley.plugins.pretty-fold"),
-  require("ahowley.plugins.indent-blankline"),
-  require("ahowley.plugins.nvim-lsp-endhints"),
   require("ahowley.plugins.posterpole"),
   require("ahowley.plugins.kanagawa"),
   require("ahowley.plugins.catppuccin"),
   require("ahowley.plugins.vague"),
-  require("ahowley.plugins.nvim-dap"),
-  require("ahowley.plugins.vim-highlighter"),
-  require("ahowley.plugins.dial"),
-  require("ahowley.plugins.csvview"),
   require("ahowley.plugins.alpha"),
+
+  -- -- -- CORE
+  require("ahowley.plugins.nvim-treesitter"),
+  require("ahowley.plugins.telescope"),
+
+  -- -- -- CODE
+  -- -- LSP
+  require("ahowley.plugins.lsp-setup"),
+  require("ahowley.plugins.typescript-tools"),
+  require("ahowley.plugins.roslyn"),
+  require("ahowley.plugins.rust-tools"),
+
+  -- -- LSP Functionality Extensions
+  require("ahowley.plugins.inc-rename"),
+
+  -- -- Snippets
+  require("ahowley.plugins.nvim-cmp"),
+
+  -- -- Highlighting
+  require("ahowley.plugins.nvim-treesitter-context"),
+  require("ahowley.plugins.todo-comments"),
+  require("ahowley.plugins.vim-highlighter"),
+
+  -- -- Formatting
+  require("ahowley.plugins.conform"),
+  require("ahowley.plugins.nvim-autopairs"),
+
+  -- -- Shortcuts
+  -- require("ahowley.plugins.which-key"),
+  require("ahowley.plugins.comment"),
+  require("ahowley.plugins.nvim-surround"),
+  require("ahowley.plugins.mini"),
+
+  -- -- Automagic
+  require("ahowley.plugins.vim-sleuth"),
+  require("ahowley.plugins.guess-indent"),
+  require("ahowley.plugins.indent-blankline"),
+  require("ahowley.plugins.dial"),
+
+  -- -- -- GUI
+  -- -- LSP
+  require("ahowley.plugins.goto-preview"),
+  require("ahowley.plugins.lsp_signature"),
+  require("ahowley.plugins.nvim-lightbulb"),
+  require("ahowley.plugins.nvim-lsp-endhints"),
+  require("ahowley.plugins.actions-preview"),
+  require("ahowley.plugins.symbols-outline"),
+  require("ahowley.plugins.syntax-tree-surfer"),
+
+  -- -- Git
+  require("ahowley.plugins.gitsigns"),
+  require("ahowley.plugins.git-conflict-nvim"),
+  require("ahowley.plugins.diffview"),
+
+  -- -- Windows
+  require("ahowley.plugins.windows"),
+
+  -- -- Folds
+  require("ahowley.plugins.pretty-fold"),
+
+  -- -- Registers
+  -- require("ahowley.plugins.nvim-neoclip"),
+
+  -- -- File/Directory Explorer
+  require("ahowley.plugins.oil"),
+
+  -- -- Tabline
+  require("ahowley.plugins.tabby"),
+
+  -- -- Statusline
+  require("ahowley.plugins.feline"),
+
+  -- -- Markdown
+  require("ahowley.plugins.markdown-preview"),
+  require("ahowley.plugins.markdown-nvim"),
+
+  -- -- CSV
+  require("ahowley.plugins.csvview"),
+
+  -- -- -- OFF BUT MAY WANT ONE DAY SO REMINING YOURSELF EXISTS
+  -- -- require("ahowley.plugins.nvim-dap"),
+
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
