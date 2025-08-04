@@ -14,7 +14,7 @@ require("lazy").setup({
   require("ahowley.plugins.kanagawa"),
   require("ahowley.plugins.catppuccin"),
   require("ahowley.plugins.vague"),
-  require("ahowley.plugins.alpha"),
+  require("ahowley.plugins.onedark"),
 
   -- -- -- CORE
   require("ahowley.plugins.nvim-treesitter"),
@@ -23,7 +23,7 @@ require("lazy").setup({
   -- -- -- CODE
   -- -- LSP
   require("ahowley.plugins.lsp-setup"),
-  require("ahowley.plugins.typescript-tools"),
+  -- require("ahowley.plugins.typescript-tools"),
   require("ahowley.plugins.roslyn"),
   require("ahowley.plugins.rust-tools"),
 
@@ -37,13 +37,14 @@ require("lazy").setup({
   require("ahowley.plugins.nvim-treesitter-context"),
   require("ahowley.plugins.todo-comments"),
   require("ahowley.plugins.vim-highlighter"),
+  require("ahowley.plugins.nvim-colorizer"),
 
   -- -- Formatting
   require("ahowley.plugins.conform"),
   require("ahowley.plugins.nvim-autopairs"),
 
   -- -- Shortcuts
-  -- require("ahowley.plugins.which-key"),
+  require("ahowley.plugins.which-key"),
   require("ahowley.plugins.comment"),
   require("ahowley.plugins.nvim-surround"),
   require("ahowley.plugins.mini"),
@@ -86,6 +87,9 @@ require("lazy").setup({
 
   -- -- Statusline
   require("ahowley.plugins.feline"),
+
+  -- -- Homepage
+  require("ahowley.plugins.alpha"),
 
   -- -- Markdown
   require("ahowley.plugins.markdown-preview"),

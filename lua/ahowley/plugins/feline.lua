@@ -1,17 +1,45 @@
+local function get_onedark_colors()
+  -- uncomment to use cool
+  local onedark = require("onedark.palette").cool
+  -- uncomment to use dark
+  -- local onedark = require("onedark.palette").dark
+  -- uncomment to use darker
+  -- local onedark = require("onedark.palette").darker
+  return {
+    red = onedark.red,
+    green = onedark.green,
+    green2 = onedark.dark_purple,
+    orange = onedark.orange,
+    magenta = onedark.purple,
+    blue = onedark.blue,
+    bg = onedark.bg0,
+    bg_statusline = onedark.bg1,
+  }
+end
+
+local function colors()
+  -- To use tokyonight statusbar, uncomment this
+  -- local _colors = require("tokyonight.colors").setup()
+
+  -- To use onedark statusbar, uncomment this
+  local _colors = get_onedark_colors()
+
+  return _colors
+end
+
 local function get_vim_color(darken)
   local recording_register = vim.fn.reg_recording()
-  local colors = require("tokyonight.colors").setup()
   local util = require("tokyonight.util")
   if require("feline.providers.vi_mode").get_vim_mode() == "INSERT" then
-    return util.darken(colors.red, darken)
+    return util.darken(colors().red, darken)
   elseif require("feline.providers.vi_mode").get_vim_mode() == "VISUAL" then
-    return util.darken(colors.green, darken)
+    return util.darken(colors().green, darken)
   elseif require("feline.providers.vi_mode").get_vim_mode() == "LINES" then
-    return util.darken(colors.green2, darken)
+    return util.darken(colors().green2, darken)
   elseif recording_register ~= "" then
-    return util.darken(colors.magenta, darken)
+    return util.darken(colors().magenta, darken)
   else
-    return util.darken(colors.blue, darken)
+    return util.darken(colors().blue, darken)
   end
 end
 
@@ -67,9 +95,9 @@ end
 
 return {
   "feline-nvim/feline.nvim",
+  dependencies = { "navarasu/onedark.nvim", "folke/tokyonight.nvim" },
   event = "VimEnter",
   config = function()
-    local colors = require("tokyonight.colors").setup()
     local util = require("tokyonight.util")
 
     local function vi_mode_component()
@@ -84,7 +112,7 @@ return {
         end,
         hl = function()
           return {
-            fg = colors.bg,
+            fg = colors().bg,
             bg = get_vim_color(1.0),
           }
         end,
@@ -115,21 +143,21 @@ return {
           vim.api.nvim_set_hl(
             0,
             "GitAddedStatusline",
-            { fg = util.lighten(colors.green, 0.5), bg = get_vim_color(0.1) }
+            { fg = util.lighten(colors().green, 0.5), bg = get_vim_color(0.1) }
           )
           local removed_icon = " "
           local removed = require("feline.providers.git").git_diff_removed()
           vim.api.nvim_set_hl(
             0,
             "GitRemovedStatusline",
-            { fg = util.lighten(colors.red, 0.5), bg = get_vim_color(0.1) }
+            { fg = util.lighten(colors().red, 0.5), bg = get_vim_color(0.1) }
           )
           local changed_icon = "󰜥 "
           local changed = require("feline.providers.git").git_diff_changed()
           vim.api.nvim_set_hl(
             0,
             "GitChangedStatusline",
-            { fg = util.lighten(colors.blue, 0.5), bg = get_vim_color(0.1) }
+            { fg = util.lighten(colors().blue, 0.5), bg = get_vim_color(0.1) }
           )
 
           local git_string = branch_icon .. " " .. branch
@@ -216,34 +244,34 @@ return {
       }
     end
 
-    local function breadcrumbs_component()
-      return {
-        provider = function()
-          if require("nvim-navic").get_data() then
-            return require("nvim-navic").get_location()
-          else
-            return ""
-          end
-        end,
-        short_provider = function()
-          return ""
-        end,
-        hl = function()
-          return {
-            fg = get_vim_color(1),
-            bg = get_vim_color(0.2),
-          }
-        end,
-        left_sep = get_left_sep(0.2),
-        right_sep = get_right_sep(0.2),
-      }
-    end
+    -- local function breadcrumbs_component()
+    --   return {
+    --     provider = function()
+    --       if require("nvim-navic").get_data() then
+    --         return require("nvim-navic").get_location()
+    --       else
+    --         return ""
+    --       end
+    --     end,
+    --     short_provider = function()
+    --       return ""
+    --     end,
+    --     hl = function()
+    --       return {
+    --         fg = get_vim_color(1),
+    --         bg = get_vim_color(0.2),
+    --       }
+    --     end,
+    --     left_sep = get_left_sep(0.2),
+    --     right_sep = get_right_sep(0.2),
+    --   }
+    -- end
 
     local blank_component = function()
       return {
         provider = "",
         hl = {
-          fg = colors.bg,
+          fg = colors().bg,
           bg = "bg",
         },
         always_visible = true,
@@ -351,14 +379,14 @@ return {
         },
         {
           search_component(),
-          breadcrumbs_component(),
+          -- breadcrumbs_component(),
           blank_component(),
         },
         {
-          lsp_component("diagnostic_errors", colors.red),
-          lsp_component("diagnostic_warnings", colors.orange),
-          lsp_component("diagnostic_hints", colors.green2),
-          lsp_component("diagnostic_info", colors.blue),
+          lsp_component("diagnostic_errors", colors().red),
+          lsp_component("diagnostic_warnings", colors().orange),
+          lsp_component("diagnostic_hints", colors().green2),
+          lsp_component("diagnostic_info", colors().blue),
           lsp_info_component(),
           progress_info(),
           location_info(),
@@ -367,14 +395,14 @@ return {
       inactive = {},
     }
 
-    vim.cmd.highlight("MsgArea guibg=" .. colors.bg_statusline)
+    vim.cmd.highlight("MsgArea guibg=" .. colors().bg_statusline)
 
     require("feline").setup({
       components = status_components,
     })
 
     require("feline").use_theme({
-      bg = colors.bg_statusline,
+      bg = colors().bg_statusline,
     })
 
     local winbar_components = {
