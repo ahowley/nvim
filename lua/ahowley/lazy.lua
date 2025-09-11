@@ -23,7 +23,7 @@ require("lazy").setup({
   -- -- -- CODE
   -- -- LSP
   require("ahowley.plugins.lsp-setup"),
-  -- require("ahowley.plugins.typescript-tools"),
+  require("ahowley.plugins.typescript-tools"),
   require("ahowley.plugins.roslyn"),
   require("ahowley.plugins.rust-tools"),
 
@@ -98,7 +98,7 @@ require("lazy").setup({
   -- -- CSV
   require("ahowley.plugins.csvview"),
 
-  -- -- -- OFF BUT MAY WANT ONE DAY SO REMINING YOURSELF EXISTS
+  -- -- -- OFF BUT MAY WANT ONE DAY SO REMINDING YOURSELF IT EXISTS
   -- -- require("ahowley.plugins.nvim-dap"),
 
   ui = {

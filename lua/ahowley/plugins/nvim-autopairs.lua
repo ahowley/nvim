@@ -3,6 +3,7 @@ return {
   event = "InsertEnter",
   config = true,
   opts = {
-    enable_check_bracket_line = true,
+    enable_check_bracket_line = false,
+    ignored_next_char = "[%w%.]",
   }, -- use opts = {} for passing setup options
 }
