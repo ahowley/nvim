@@ -86,6 +86,31 @@ return {
     Map("n", L("sf"), builtin.current_buffer_fuzzy_find, "[s]earch current [f]ile fuzzy")
 
     Map("n", L("lb"), builtin.buffers, "[l]ist [b]uffers")
+    Map("n", L("lu"), function(buf_opts)
+      buf_opts = buf_opts or {}
+      local bufnrs = {}
+      -- Find all buffers with the 'modified' option set to true
+      for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        if
+          vim.api.nvim_buf_is_valid(bufnr)
+          and vim.api.nvim_get_option_value("modified", { buf = bufnr })
+        then
+          table.insert(bufnrs, bufnr)
+        end
+      end
+
+      if #bufnrs == 0 then
+        vim.notify("No unsaved buffers found.", vim.log.levels.INFO, { title = "Telescope" })
+        return
+      end
+
+      -- Use the built-in buffers picker with the list of unsaved buffer numbers
+      require("telescope.builtin").buffers(vim.tbl_extend("force", buf_opts, {
+        prompt_title = "Unsaved Buffers",
+        buflist = bufnrs,
+      }))
+    end, "[l]ist [u]nsaved buffers")
+
     Map("n", L("lc"), builtin.command_history, "[l]ist [c]ommand history")
     Map("n", L("ls"), builtin.search_history, "[l]ist [s]earch history")
     Map("n", L("lm"), builtin.marks, "[l]ist [m]arks")
