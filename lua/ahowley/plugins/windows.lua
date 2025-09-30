@@ -19,5 +19,6 @@ return {
     Map("n", L("Tw"), ":WindowsToggleAutowidth<CR>", "[T]oggle [w]indow autowidth")
 
     require("windows").setup()
+    require("windows.autowidth").disable()
   end,
 }
