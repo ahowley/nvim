@@ -150,6 +150,8 @@ function Mappings()
     end
   end, "[T]oggle [n]ewlines")
 
+  Map("n", L("aw"), "<cmd>:%s/\\s\\+$//e<CR>", "[a]ction strip [w]hitespace")
+
   -- Commands
   vim.api.nvim_create_user_command("FormatDisable", function(args)
     if args.bang then

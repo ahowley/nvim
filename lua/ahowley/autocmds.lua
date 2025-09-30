@@ -57,12 +57,12 @@ autocmd("TextYankPost", {
   end,
 })
 
-autocmd("BufWritePre", {
-  desc = "Remove whitespace on save",
-  group = augroup("BufWritePreGroup", { clear = true }),
-  pattern = "",
-  command = ":%s/\\s\\+$//e",
-})
+-- autocmd("BufWritePre", {
+--   desc = "Remove whitespace on save",
+--   group = augroup("BufWritePreGroup", { clear = true }),
+--   pattern = "",
+--   command = ":%s/\\s\\+$//e",
+-- })
 
 autocmd("ModeChanged", {
   desc = "Redraw on mode change to avoid disappearing statusline",
