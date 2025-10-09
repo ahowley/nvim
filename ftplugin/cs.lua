@@ -1,0 +1,13 @@
+local bufnr = vim.api.nvim_get_current_buf()
+
+MapInlayHints(bufnr)
+MapHover(bufnr)
+MapDocumentSymbol(bufnr)
+MapPublishDiagnostics(bufnr)
+MapDefinition(bufnr)
+MapDeclaration(bufnr)
+MapTypeDefinition(bufnr)
+MapReferences(bufnr)
+MapImplementation(bufnr)
+MapCodeAction(bufnr)
+MapRename(bufnr)
