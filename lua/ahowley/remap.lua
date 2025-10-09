@@ -10,8 +10,6 @@ end
 function Map(mode, binding, action, description, opts)
   opts = opts or {}
   opts.desc = description
-  ---@diagnostic disable-next-line: undefined-global
-  opts.buffer = bufnr
   vim.keymap.set(mode, binding, action, opts)
 end
 
@@ -29,14 +27,6 @@ function Mappings()
 
   -- Clear search highlight on <Esc> in normal mode
   Map("n", "<Esc>", "<cmd>nohlsearch<CR>", "Clear search highlights")
-
-  -- Diagnostic keymaps
-  Map("n", "[d", function()
-    vim.diagnostic.goto_prev({ float = false })
-  end, "Go to previous [d]iagnostic")
-  Map("n", "]d", function()
-    vim.diagnostic.goto_next({ float = false })
-  end, "Go to next [d]iagnostic")
 
   -- Easier to reach macro/mark keys
   Map("n", L("q"), "@", "Run [q]acro")
@@ -57,6 +47,29 @@ function Mappings()
   Map("i", "jk", "<Esc>", "alternate escape key")
   Map("n", L("o"), "o<esc>", "add line below and jump")
   Map("n", L("O"), "O<esc>", "add line above and jump")
+
+  -- Marks
+  Map("n", L("m1"), "mZ", "[m]ark 1")
+  Map("n", L("m2"), "mY", "[m]ark 2")
+  Map("n", L("m3"), "mX", "[m]ark 3")
+  Map("n", L("m4"), "mW", "[m]ark 4")
+  Map("n", L("m5"), "mV", "[m]ark 5")
+  Map("n", L("m6"), "mU", "[m]ark 6")
+  Map("n", L("m7"), "mT", "[m]ark 7")
+  Map("n", L("m8"), "mS", "[m]ark 8")
+  Map("n", L("m9"), "mR", "[m]ark 9")
+  Map("n", "g1", "`Z", "[g]o to mark 1")
+  Map("n", "g2", "`Y", "[g]o to mark 2")
+  Map("n", "g3", "`X", "[g]o to mark 3")
+  Map("n", "g4", "`W", "[g]o to mark 4")
+  Map("n", "g5", "`V", "[g]o to mark 5")
+  Map("n", "g6", "`U", "[g]o to mark 6")
+  Map("n", "g7", "`T", "[g]o to mark 7")
+  Map("n", "g8", "`S", "[g]o to mark 8")
+  Map("n", "g9", "`R", "[g]o to mark 9")
+
+  -- Buffers
+  Map("n", L("bq"), "<cmd>bdelete<CR>", "[b]uffer [q]elete")
 
   -- Navigate windows
   Map("n", L("wh"), "<C-w><C-h>", "move to [w]indow on the left")
@@ -95,7 +108,7 @@ function Mappings()
 
   -- Buffer
   Map("n", L("va"), "ggVG", "[v]elect all")
-  Map("n", L("vy"), 'ggVG"+y<C-o>', "[v]ank all")
+  Map("n", L("vy"), 'ggVG"+y', "[v]ank all")
 
   -- Markdown
   Map("n", "\\", "f|", "Find next |")
@@ -117,26 +130,26 @@ function Mappings()
     "[a]ction [F]reemarker reverse"
   )
 
-  -- nvim-dap
-  Map("n", L("dc"), "<cmd>lua require'dap'.continue()<CR>", "[d]ebug [c]ontinue")
-  Map("n", L("dl"), "<cmd>lua require'dap'.step_over()<CR>", "[d]ebug step over (right)")
-  Map("n", L("dj"), "<cmd>lua require'dap'.step_into()<CR>", "[d]ebug step into (down)")
-  Map("n", L("dk"), "<cmd>lua require'dap'.step_out()<CR>", "[d]ebug step out (up)")
-  Map("n", L("db"), "<cmd>lua require'dap'.step_out()<CR>", "[d]ebug toggle [b]reakpoint")
-  Map(
-    "n",
-    L("dB"),
-    "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-    "[d]ebug set [B]reakpoint condition"
-  )
-  Map(
-    "n",
-    L("dp"),
-    "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
-    "[d]ebug log [p]oint message"
-  )
-  Map("n", L("dr"), "<cmd>lua require'dap'.repl.open()<CR>", "[d]ebug open [r]epl")
-  Map("n", L("dl"), "<cmd>lua require'dap'.run_last()<CR>", "[d]ebug run [l]ast")
+  -- -- nvim-dap
+  -- Map("n", L("dc"), "<cmd>lua require'dap'.continue()<CR>", "[d]ebug [c]ontinue")
+  -- Map("n", L("dl"), "<cmd>lua require'dap'.step_over()<CR>", "[d]ebug step over (right)")
+  -- Map("n", L("dj"), "<cmd>lua require'dap'.step_into()<CR>", "[d]ebug step into (down)")
+  -- Map("n", L("dk"), "<cmd>lua require'dap'.step_out()<CR>", "[d]ebug step out (up)")
+  -- Map("n", L("db"), "<cmd>lua require'dap'.step_out()<CR>", "[d]ebug toggle [b]reakpoint")
+  -- Map(
+  --   "n",
+  --   L("dB"),
+  --   "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+  --   "[d]ebug set [B]reakpoint condition"
+  -- )
+  -- Map(
+  --   "n",
+  --   L("dp"),
+  --   "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+  --   "[d]ebug log [p]oint message"
+  -- )
+  -- Map("n", L("dr"), "<cmd>lua require'dap'.repl.open()<CR>", "[d]ebug open [r]epl")
+  -- Map("n", L("dl"), "<cmd>lua require'dap'.run_last()<CR>", "[d]ebug run [l]ast")
 
   -- Special
   Map("n", L("<tab>"), "/[a-zA-Z0-9\\_\\-]\\+<CR><cmd>noh<CR>", "next word (no punctuation)")

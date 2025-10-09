@@ -1,66 +1,15 @@
 require("ahowley.remap")
 
-local servers = {
-  rust_analyzer = {},
-  -- omnisharp = {},
-  csharpier = {},
-  cssls = {},
-  dockerls = {},
-  emmet_ls = {},
-  html = {
-    filetypes = { "ftl" },
-  },
-  ruff = {},
-  jsonls = {
-    autostart = false,
-  },
-  sqlls = {},
-  -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-
-  lua_ls = {
-    -- cmd = {...},
-    -- filetypes = { ...},
-    -- capabilities = {},
-    settings = {
-      Lua = {
-        completion = {
-          callSnippet = "Replace",
-        },
-        -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-        -- diagnostics = { disable = { 'missing-fields' } },
-      },
-    },
-  },
-}
-local ensure_installed = vim.tbl_keys(servers or {})
-
 return {
-  "mason-org/mason-lspconfig.nvim",
-  opts = {
-    automatic_enable = {
-      exclude = {
-        "jsonls",
-      },
-    },
-    ensure_installed = ensure_installed,
-    handlers = {
-      function(server_name)
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities =
-          vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-        local server = servers[server_name] or {}
-
-        server.capabilities =
-          vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-        require("lspconfig")[server_name].setup(server)
-      end,
-    },
-  },
+  "neovim/nvim-lspconfig",
   dependencies = {
+    "nvim-telescope/telescope.nvim",
+    "smjonas/inc-rename.nvim",
+    "rmagatti/goto-preview",
+    "aznhe21/actions-preview.nvim",
     {
       "folke/lazydev.nvim",
-      ft = "lua",
+      ft = { "lua" },
       opts = {
         library = {
           "LazyVim",
@@ -79,12 +28,14 @@ return {
     { "j-hui/fidget.nvim", opts = {} },
     {
       "SmiteshP/nvim-navic",
+      ft = { "!json" },
       opts = {
         lsp = { auto_attach = true },
       },
     },
     {
       "SmiteshP/nvim-navbuddy",
+      ft = { "!json" },
       dependencies = {
         "SmiteshP/nvim-navic",
         "MunifTanjim/nui.nvim",
@@ -92,11 +43,8 @@ return {
       opts = { lsp = { auto_attach = true } },
     },
     {
-      "Hoffs/omnisharp-extended-lsp.nvim",
-      lazy = true,
-    },
-    {
       "lewis6991/hover.nvim",
+      ft = { "!json" },
       opts = {
         init = function()
           require("hover.providers.fold_preview")
@@ -109,95 +57,195 @@ return {
         title = false,
       },
     },
-    {
-      "neovim/nvim-lspconfig",
-      dependencies = {
-        "folke/lazydev.nvim",
-        "j-hui/fidget.nvim",
-        "smiteshP/nvim-navbuddy",
-        "Hoffs/omnisharp-extended-lsp.nvim",
-        "lewis6991/hover.nvim",
-      },
-    },
   },
   config = function(opts)
     vim.lsp.inlay_hint.enable(true)
     vim.diagnostic.config({ virtual_text = true })
-
-    Map("n", L("fr"), vim.lsp.buf.rename, "[f]ile [r]ename")
-    -- map("n", l("ca"), vim.lsp.buf.code_action, "[c]ode [a]ction")
-    Map("n", L("ch"), require("hover").hover, "[c]ode [h]over")
-    -- map("n", l("ch"), vim.lsp.buf.hover, "[c]ode [h]over")
-    -- map("n", l("gD"), vim.lsp.buf.declaration, "[g]oto [d]eclaration")
-    Map("n", L("cH"), require("hover").hover_select, "[c]ode [H]over select")
-    Map("n", "<C-p>", function()
-      ---@diagnostic disable-next-line: missing-parameter
-      require("hover").hover_switch("previous")
-    end, "hover.nvim (previous source)")
-    Map("n", "<C-n>", function()
-      ---@diagnostic disable-next-line: missing-parameter
-      require("hover").hover_switch("next")
-    end, "hover.nvim (next source)")
     Map("n", L("Ti"), function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-    end, "[T]oggle [i]nlay hints")
-    Map("n", L("cn"), "<cmd>Navbuddy<CR>", "[c]ode [n]avigate")
+    end, "[T]oggle [i]nlay hints", { buffer = bufnr })
 
-    Map("n", "K", function()
-      vim.lsp.buf.hover({
-        border = "rounded",
-      })
-    end, "[K]over")
+    local register_hover = function(client, bufnr)
+      if client:supports_method("textDocument/hover") then
+        Map("n", L("ch"), require("hover").open, "[c]ode [h]over", { buffer = bufnr })
+        Map("n", L("cH"), require("hover").select, "[c]ode [H]over select", { buffer = bufnr })
+        Map("n", "<C-p>", function()
+          ---@diagnostic disable-next-line: missing-parameter
+          require("hover").switch("previous")
+        end, "hover.nvim (previous source)", { buffer = bufnr })
+        Map("n", "<C-n>", function()
+          ---@diagnostic disable-next-line: missing-parameter
+          require("hover").switch("next")
+        end, "hover.nvim (next source)", { buffer = bufnr })
+        Map("n", "K", function()
+          vim.lsp.buf.hover({
+            border = "rounded",
+          })
+        end, "[K]over", { buffer = bufnr })
+      end
+    end
+
+    local register_document_symbol = function(client, bufnr)
+      if client:supports_method("textDocument/documentSymbol") then
+        Map("n", L("cn"), "<cmd>Navbuddy<CR>", "[c]ode [n]avigate", { buffer = bufnr })
+      end
+    end
+
+    local register_publish_diagnostics = function(client, bufnr)
+      if client:supports_method("textDocument/publishDiagnostics") then
+        Map("n", "[d", function()
+          vim.diagnostic.goto_prev({ float = false })
+        end, "Go to previous [d]iagnostic", { buffer = bufnr })
+        Map("n", "]d", function()
+          vim.diagnostic.goto_next({ float = false })
+        end, "Go to next [d]iagnostic", { buffer = bufnr })
+        Map("n", L("ld"), function()
+          require("telescope.builtin").diagnostics(require("telescope.themes").get_ivy({}))
+        end, "[l]ist [d]iagnostics", { buffer = bufnr })
+      end
+    end
+
+    local register_definition = function(client, bufnr)
+      if client:supports_method("textDocument/definition") then
+        Map(
+          "n",
+          L("gd"),
+          require("telescope.builtin").lsp_definitions,
+          "[g]oto [d]efinition(s)",
+          { buffer = bufnr }
+        )
+        Map(
+          "n",
+          L("gp"),
+          "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+          "[g]oto [p]review definition",
+          { buffer = bufnr }
+        )
+      end
+    end
+
+    local register_declaration = function(client, bufnr)
+      if client:supports_method("textDocument/declaration") then
+        Map(
+          "n",
+          L("gD"),
+          "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+          "[g]oto [D]eclaration",
+          { buffer = bufnr }
+        )
+      end
+    end
+
+    local register_type_definition = function(client, bufnr)
+      if client:supports_method("textDocument/typeDefinition") then
+        Map(
+          "n",
+          L("gt"),
+          "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+          "[g]oto [t]ype definition",
+          { buffer = bufnr }
+        )
+      end
+    end
+
+    local register_references = function(client, bufnr)
+      if client:supports_method("textDocument/references") then
+        Map(
+          "n",
+          L("gr"),
+          "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+          "[g]oto [r]eferences",
+          { buffer = bufnr }
+        )
+      end
+    end
+
+    local register_implementation = function(client, bufnr)
+      if client:supports_method("textDocument/implementation") then
+        Map(
+          "n",
+          L("gi"),
+          "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+          "[g]oto [i]mplementation",
+          { buffer = bufnr }
+        )
+      end
+    end
+
+    local register_code_action = function(client, bufnr)
+      if client:supports_method("textDocument/codeAction") then
+        Map(
+          "n",
+          L("ca"),
+          require("actions-preview").code_actions,
+          "[c]ode [a]ction",
+          { buffer = bufnr }
+        )
+      end
+    end
+
+    local register_rename = function(client, bufnr)
+      if client:supports_method("textDocument/rename") then
+        Map("n", L("cr"), function()
+          return ":IncRename " .. vim.fn.expand("<cword>")
+        end, "[c]ode [r]ename symbol", { expr = true }, { buffer = bufnr })
+        Map("n", L("fr"), vim.lsp.buf.rename, "[f]ile [r]ename", { buffer = bufnr })
+      end
+    end
 
     vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
-      callback = function(event)
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and client.server_capabilities.documentHighlightProvider then
-          local highlight_augroup =
-            vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
-          vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.document_highlight,
-          })
-
-          vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-            buffer = event.buf,
-            group = highlight_augroup,
-            callback = vim.lsp.buf.clear_references,
-          })
-        end
+      group = vim.api.nvim_create_augroup("ah_lsp", {}),
+      callback = function(args)
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+        local bufnr = args.buf
+        register_hover(client, bufnr)
+        register_document_symbol(client, bufnr)
+        register_publish_diagnostics(client, bufnr)
+        register_definition(client, bufnr)
+        register_declaration(client, bufnr)
+        register_type_definition(client, bufnr)
+        register_references(client, bufnr)
+        register_implementation(client, bufnr)
+        register_code_action(client, bufnr)
+        register_rename(client, bufnr)
       end,
     })
 
     vim.api.nvim_create_autocmd("LspDetach", {
-      group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
-      callback = function(event)
-        vim.lsp.buf.clear_references()
-        vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event.buf })
+      group = vim.api.nvim_create_augroup("ah_lsp", {}),
+      callback = function(args)
+        local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
       end,
     })
 
-    require("mason-lspconfig").setup(opts)
-
-    vim.lsp.config("roslyn", {
-      settings = {
-        ["csharp|inlay_hints"] = {
-          csharp_enable_inlay_hints_for_implicit_object_creation = true,
-          csharp_enable_inlay_hints_for_implicit_variable_types = true,
-          csharp_enable_inlay_hints_for_lambda_parameter_types = true,
-          csharp_enable_inlay_hints_for_types = true,
-          dotnet_enable_inlay_hints_for_indexer_parameters = true,
-          dotnet_enable_inlay_hints_for_literal_parameters = true,
-          dotnet_enable_inlay_hints_for_object_creation_parameters = true,
-          dotnet_enable_inlay_hints_for_other_parameters = true,
-          dotnet_enable_inlay_hints_for_parameters = true,
-          dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = false,
-          dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = false,
-          dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = false,
-        },
-      },
-    })
+    -- vim.api.nvim_create_autocmd("LspAttach", {
+    --   group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+    --   callback = function(event)
+    --     local client = vim.lsp.get_client_by_id(event.data.client_id)
+    --     if client and client.server_capabilities.documentHighlightProvider then
+    --       local highlight_augroup =
+    --         vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+    --       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    --         buffer = event.buf,
+    --         group = highlight_augroup,
+    --         callback = vim.lsp.buf.document_highlight,
+    --       })
+    --
+    --       vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+    --         buffer = event.buf,
+    --         group = highlight_augroup,
+    --         callback = vim.lsp.buf.clear_references,
+    --       })
+    --     end
+    --   end,
+    -- })
+    --
+    -- vim.api.nvim_create_autocmd("LspDetach", {
+    --   group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+    --   callback = function(event)
+    --     vim.lsp.buf.clear_references()
+    --     -- vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event.buf })
+    --   end,
+    -- })
   end,
 }

@@ -15,11 +15,12 @@ return { -- Useful plugin to show you pending keybinds.
     MapReg(L("t"), "[t]ab")
     MapReg(L("T"), "[T]oggle")
     MapReg(L("c"), "[c]ode, [c]omment")
-    MapReg(L("b"), "code [b]lock")
+    MapReg(L("b"), "[b]uffer, code [b]lock")
     MapReg(L("w"), "[w]indow")
     MapReg(L("x"), "[x]onflict")
     MapReg(L("a"), "[a]ction")
     MapReg(L("v"), "[v]isual")
+    MapReg(L("m"), "[m]ark")
     MapReg(L("d"), "[d]ebug")
     if vim.env.JIRA_HOST ~= nil and vim.env.JIRA_TOKEN ~= nil then MapReg(L("j"), "[j]ira") end
   end,

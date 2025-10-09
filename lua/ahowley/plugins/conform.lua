@@ -38,10 +38,11 @@ return { -- Autoformat
         cpp = true,
         cs = true,
         ftl = true,
+        json = true,
       }
       return {
         timeout_ms = 5000,
-        lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+        lsp_fallback = false,
       }
     end,
     formatters_by_ft = {

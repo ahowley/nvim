@@ -1,6 +1,7 @@
 return {
   -- "anuvyklack/pretty-fold.nvim",
   "bbjornstad/pretty-fold.nvim",
+  ft = { "!json" },
   config = function()
     require("pretty-fold").setup({
       keep_indentation = false,

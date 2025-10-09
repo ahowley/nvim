@@ -91,10 +91,7 @@ return {
       local bufnrs = {}
       -- Find all buffers with the 'modified' option set to true
       for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-        if
-          vim.api.nvim_buf_is_valid(bufnr)
-          and vim.api.nvim_get_option_value("modified", { buf = bufnr })
-        then
+        if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_get_option(bufnr, "modified") then
           table.insert(bufnrs, bufnr)
         end
       end
@@ -118,15 +115,11 @@ return {
       builtin.quickfix(require("telescope.themes").get_ivy({}))
     end, "[l]ist [q]uickfixes")
     Map("n", L("lj"), builtin.jumplist, "[l]ist [j]umps")
-    Map("n", L("ld"), function()
-      builtin.diagnostics(require("telescope.themes").get_ivy({}))
-    end, "[l]ist [d]iagnostics")
     Map("n", L("ln"), function()
       builtin.find_files({ cwd = vim.fn.stdpath("config") })
     end, "[l]ist [n]eovim config")
 
     -- map("n", l("gi"), builtin.lsp_implementations, "[g]oto [i]mplementation(s)")
-    Map("n", L("gd"), builtin.lsp_definitions, "[g]oto [d]efinition(s)")
     -- map("n", l("gt"), builtin.lsp_type_definitions, "[g]oto [t]ype definition(s)")
     --
     Map("n", L("sC"), "<cmd>Telescope colorscheme<CR>", "[s]earch [C]olorschemes")
