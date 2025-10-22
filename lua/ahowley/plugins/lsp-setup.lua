@@ -123,6 +123,56 @@ function MapRename(bufnr)
   Map("n", L("fr"), vim.lsp.buf.rename, "[f]ile [r]ename", { buffer = bufnr })
 end
 
+local function escape_shell_arg(arg_str)
+  arg_str = arg_str:gsub("([\\\"'\\])", "\\%1")
+  return '"' .. arg_str .. '"'
+end
+
+local function prettier_format_selection(parser)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local start_pos = vim.fn.getpos("v")
+  local end_pos = vim.fn.getpos(".")
+
+  local start_line = math.min(start_pos[2], end_pos[2]) - 1
+  local start_col = math.min(start_pos[3], end_pos[3]) - 1
+  local end_line = math.max(start_pos[2], end_pos[2]) - 1
+  local current_mode = vim.fn.mode()
+  local current_line = vim.fn.getline(end_line + 1)
+  local max_col = string.len(current_line)
+  local end_col = math.max(start_pos[3], end_pos[3])
+
+  if current_mode == "V" then
+    start_col = 0
+    end_col = max_col
+  end
+  if end_col > max_col then end_col = max_col end
+
+  local selection = vim.api.nvim_buf_get_text(bufnr, start_line, start_col, end_line, end_col, {})
+  local prettier = {
+    "npx",
+    "prettier",
+    "--stdin",
+    "--parser",
+    parser,
+  }
+
+  local obj = vim.system(prettier, { text = true, stdin = selection }):wait()
+  local text = obj.stdout
+
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "nx", false)
+  vim.api.nvim_buf_set_text(bufnr, start_line, start_col, end_line, end_col, vim.split(text, "\n"))
+end
+
+function MapPrettier(bufnr)
+  MapReg(L("p"), "[p]rettier")
+  Map("x", L("pc"), function()
+    prettier_format_selection("css")
+  end, "[p]rettier [c]ss")
+  Map("x", L("ph"), function()
+    prettier_format_selection("html")
+  end, "[p]rettier [h]tml")
+end
+
 return {
   "neovim/nvim-lspconfig",
   dependencies = {

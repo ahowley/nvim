@@ -29,7 +29,7 @@ require("lazy").setup({
 
   -- -- LSP Functionality Extensions
   require("ahowley.plugins.inc-rename"),
-  require("ahowley.plugins.lensline"),
+  -- require("ahowley.plugins.lensline"),
 
   -- -- Snippets
   require("ahowley.plugins.nvim-cmp"),
