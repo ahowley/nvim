@@ -45,10 +45,10 @@ end
 
 function MapPublishDiagnostics(bufnr)
   Map("n", "[d", function()
-    vim.diagnostic.goto_prev({ float = false })
+    vim.diagnostic.jump({ count = -1, float = false })
   end, "Go to previous [d]iagnostic", { buffer = bufnr })
   Map("n", "]d", function()
-    vim.diagnostic.goto_next({ float = false })
+    vim.diagnostic.jump({ count = 1, float = false })
   end, "Go to next [d]iagnostic", { buffer = bufnr })
   Map("n", L("ld"), function()
     require("telescope.builtin").diagnostics(require("telescope.themes").get_ivy({}))
@@ -119,13 +119,8 @@ end
 function MapRename(bufnr)
   Map("n", L("cr"), function()
     return ":IncRename " .. vim.fn.expand("<cword>")
-  end, "[c]ode [r]ename symbol", { expr = true }, { buffer = bufnr })
+  end, "[c]ode [r]ename symbol", { expr = true, buffer = bufnr })
   Map("n", L("fr"), vim.lsp.buf.rename, "[f]ile [r]ename", { buffer = bufnr })
-end
-
-local function escape_shell_arg(arg_str)
-  arg_str = arg_str:gsub("([\\\"'\\])", "\\%1")
-  return '"' .. arg_str .. '"'
 end
 
 local function prettier_format_selection(parser)
@@ -157,13 +152,13 @@ local function prettier_format_selection(parser)
   }
 
   local obj = vim.system(prettier, { text = true, stdin = selection }):wait()
-  local text = obj.stdout
+  local text = obj.stdout or ""
 
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "nx", false)
   vim.api.nvim_buf_set_text(bufnr, start_line, start_col, end_line, end_col, vim.split(text, "\n"))
 end
 
-function MapPrettier(bufnr)
+function MapPrettier()
   MapReg(L("p"), "[p]rettier")
   Map("x", L("pc"), function()
     prettier_format_selection("css")
@@ -231,17 +226,18 @@ return {
       },
     },
   },
-  config = function(opts)
+  config = function()
     vim.lsp.inlay_hint.enable(true)
     vim.diagnostic.config({ virtual_text = true })
 
+    local attach_group = vim.api.nvim_create_augroup("ah_lsp", {})
     vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("ah_lsp", {}),
+      group = attach_group,
       callback = function(args)
+        local bufnr = args.buf
         local filetype = vim.fn.getbufvar(bufnr, "&filetype")
         print("Filetype for buffer " .. bufnr .. ": " .. filetype)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-        local bufnr = args.buf
 
         CreateSymbolAutocmds(bufnr)
         MapInlayHints(bufnr)
@@ -261,10 +257,13 @@ return {
     })
 
     vim.api.nvim_create_autocmd("LspDetach", {
-      group = vim.api.nvim_create_augroup("ah_lsp", {}),
-      callback = function(args)
+      group = attach_group,
+      callback = function()
         vim.lsp.buf.clear_references()
       end,
     })
+
+    vim.lsp.enable("marksman")
+    vim.lsp.enable("lua_ls")
   end,
 }
