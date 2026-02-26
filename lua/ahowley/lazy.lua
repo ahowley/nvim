@@ -99,6 +99,9 @@ require("lazy").setup({
   -- -- CSV
   require("ahowley.plugins.csvview"),
 
+  -- -- Database
+  require("ahowley.plugins.vim-dadbod-ui"),
+
   -- -- -- OFF BUT MAY WANT ONE DAY SO REMINDING YOURSELF IT EXISTS
   -- -- require("ahowley.plugins.nvim-dap"),
 
