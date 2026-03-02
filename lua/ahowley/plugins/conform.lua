@@ -84,6 +84,21 @@ return { -- Autoformat
           require_cwd = false,
         }
       end,
+      sleek = function()
+        local command = "sleek"
+
+        local args = {
+          "--uppercase=false",
+          "--lines-between-queries=3",
+          "$FILENAME",
+        }
+
+        return {
+          command = command,
+          args = args,
+          stdin = false,
+        }
+      end,
     },
   },
 }

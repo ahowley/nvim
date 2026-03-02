@@ -1,5 +1,6 @@
 local bufnr = vim.api.nvim_get_current_buf()
 
+CreateSymbolAutocmds(bufnr)
 MapInlayHints(bufnr)
 MapHover(bufnr)
 MapDocumentSymbol(bufnr)

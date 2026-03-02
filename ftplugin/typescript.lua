@@ -11,6 +11,7 @@ Map(
   { buffer = bufnr }
 )
 
+CreateSymbolAutocmds(bufnr)
 MapInlayHints(bufnr)
 MapHover(bufnr)
 MapDocumentSymbol(bufnr)
@@ -22,4 +23,4 @@ MapReferences(bufnr)
 MapImplementation(bufnr)
 MapCodeAction(bufnr)
 MapRename(bufnr)
-MapPrettier(bufnr)
+MapPrettier()

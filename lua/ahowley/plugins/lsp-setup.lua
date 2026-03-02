@@ -239,7 +239,6 @@ return {
         print("Filetype for buffer " .. bufnr .. ": " .. filetype)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-        CreateSymbolAutocmds(bufnr)
         MapInlayHints(bufnr)
         if client:supports_method("textDocument/hover") then MapHover(bufnr) end
         if client:supports_method("textDocument/documentSymbol") then MapDocumentSymbol(bufnr) end
