@@ -64,7 +64,6 @@ require("lazy").setup({
   require("ahowley.plugins.nvim-lsp-endhints"),
   require("ahowley.plugins.actions-preview"),
   require("ahowley.plugins.symbols-outline"),
-  require("ahowley.plugins.syntax-tree-surfer"),
 
   -- -- Git
   require("ahowley.plugins.gitsigns"),
