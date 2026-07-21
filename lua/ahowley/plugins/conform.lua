@@ -63,6 +63,7 @@ return { -- Autoformat
       json = { "prettierd" },
       sql = { "sleek" },
       cs = { "csharpier" },
+      rust = { "rustfmt" },
     },
     formatters = {
       csharpier = function()
